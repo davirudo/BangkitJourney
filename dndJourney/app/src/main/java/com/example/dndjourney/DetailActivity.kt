@@ -1,10 +1,12 @@
 package com.example.dndjourney
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 
 class DetailActivity : AppCompatActivity() {
 
@@ -15,13 +17,14 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var tvDetailName: TextView
     private lateinit var tvDetailDescription: TextView
     private lateinit var ivDetailPhoto: ImageView
-    private lateinit var actionShare: TextView
+    private lateinit var actionShare: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         val action = supportActionBar
         action?.hide()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         val dataRace = intent.getParcelableExtra<Race>(KEY_RACE)
 
@@ -38,7 +41,14 @@ class DetailActivity : AppCompatActivity() {
         }
 
         actionShare.setOnClickListener {
-            Toast.makeText(this,"Shared", Toast.LENGTH_LONG).show()
+           val shareIntent = Intent()
+            shareIntent.action = Intent.ACTION_SEND
+            shareIntent.type = "text/plain"
+            val body = "You got the link!"
+            val sub = "https://www.dndbeyond.com/races"
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, body)
+            shareIntent.putExtra(Intent.EXTRA_TEXT, sub)
+            startActivity(Intent.createChooser(shareIntent, "Here's the link"))
         }
     }
 
