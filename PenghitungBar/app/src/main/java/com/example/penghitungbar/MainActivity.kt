@@ -6,67 +6,75 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import com.example.penghitungbar.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var edWidth: EditText
-    private lateinit var edHeight: EditText
-    private lateinit var edLength: EditText
-    private lateinit var btnCalculate:  Button
-    private lateinit var tvResult: TextView
+//    Jika tanpa binding
+//    private lateinit var edWidth: EditText
+//    private lateinit var edHeight: EditText
+//    private lateinit var edLength: EditText
+//    private lateinit var btnCalculate:  Button
+//    private lateinit var tvResult: TextView
 
     companion object {
         private const val STATE_RESULT = "state_result"
     }
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        edWidth = findViewById(R.id.ed_width)
-        edHeight = findViewById(R.id.ed_height)
-        edLength = findViewById(R.id.ed_length)
-        btnCalculate = findViewById(R.id.btn_calculate)
-        tvResult = findViewById(R.id.tv_result)
+//        Jika tanpa binding
+//        edWidth = findViewById(R.id.ed_width)
+//        edHeight = findViewById(R.id.ed_height)
+//        edLength = findViewById(R.id.ed_length)
+//        btnCalculate = findViewById(R.id.btn_calculate)
+//        btnCalculate.setOnClickListener(this)
+//        tvResult = findViewById(R.id.tv_result)
 
-        btnCalculate.setOnClickListener(this)
+        binding.btnCalculate.setOnClickListener(this)
 
         if (savedInstanceState != null) {
             val result = savedInstanceState.getString(STATE_RESULT)
-            tvResult.text = result
+            binding.tvResult.text = result
         }
 
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(STATE_RESULT, tvResult.text.toString())
+        outState.putString(STATE_RESULT, binding.tvResult.text.toString())
     }
 
     override fun onClick(p0: View?) {
         if(p0?.id == R.id.btn_calculate) {
-            val inputLength = edLength.text.toString().trim()
-            val inputWidth = edWidth.text.toString().trim()
-            val inputHeight = edHeight.text.toString().trim()
+            val inputLength = binding.edLength.text.toString().trim()
+            val inputWidth = binding.edWidth.text.toString().trim()
+            val inputHeight = binding.edHeight.text.toString().trim()
 
             var isEmptyFields = false
 
             if (inputLength.isEmpty()) {
                 isEmptyFields = true
-                edLength.error = "Kolom jangan kosong"
+                binding.edLength.error = "Kolom jangan kosong"
             }
             if (inputWidth.isEmpty()) {
                 isEmptyFields = true
-                edWidth.error = "Kolom jangan kosong"
+                binding.edWidth.error = "Kolom jangan kosong"
             }
             if (inputHeight.isEmpty()) {
                 isEmptyFields = true
-                edHeight.error = "Kolom jangan kosong"
+                binding.edHeight.error = "Kolom jangan kosong"
             }
 
             if(!isEmptyFields) {
                 val volume = inputLength.toDouble() * inputWidth.toDouble() * inputHeight.toDouble()
-                tvResult.text = volume.toString()
+                binding.tvResult.text = volume.toString()
             }
         }
     }
