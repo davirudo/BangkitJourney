@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.Window
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
         rvRaces = findViewById(R.id.rv_races)
         rvRaces.setHasFixedSize(true)
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 onBackPressed()
                 return true
             }
-            R.id.action_about -> {
+            R.id.about_page -> {
                 startActivity(Intent(this, AboutActivity::class.java))
             }
         }
