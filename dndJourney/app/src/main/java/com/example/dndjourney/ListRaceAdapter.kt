@@ -10,12 +10,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class ListRaceAdapter(private val listRace: ArrayList<Race>) : RecyclerView.Adapter<ListRaceAdapter.ListViewHolder>() {
-private lateinit var onItemClickCallBack: OnItemClickCallBack
-
-fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
-    this.onItemClickCallBack = onItemClickCallBack
-}
-
+    
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imgPhoto: ImageView = itemView.findViewById(R.id.img_item_photo)
         val tvName: TextView = itemView.findViewById(R.id.tv_item_name)
@@ -40,9 +35,4 @@ fun setOnItemClickCallBack(onItemClickCallBack: OnItemClickCallBack) {
             holder.itemView.context.startActivity(intentDetail)
         }
     }
-
-    interface OnItemClickCallBack {
-        fun OnItemClicked(data:Race)
-    }
-
 }
