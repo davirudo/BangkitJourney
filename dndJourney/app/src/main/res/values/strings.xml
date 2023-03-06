@@ -2,12 +2,13 @@
     <string name="app_name">List of Races in DnD</string>
 
     <string name="races_name">Nama Ras</string>
-    <string name="description">Deskripsi</string>
-    
+    <string name="description">Description</string>
+    <string name="share">share</string>
+
     <string name="about">About</string>
-    <string name="nama">Depit</string>
-    <string name="email">Depit@uwu</string>
-    
+    <string name="nama">David Diamanta</string>
+    <string name="email">daviddiamanta17@students.amikom.ac.id</string>
+
     <string-array name="data_name">
         <item>Dragonborn</item>
         <item>Dwarf</item>
