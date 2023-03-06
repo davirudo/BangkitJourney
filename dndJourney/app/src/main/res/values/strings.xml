@@ -30,14 +30,16 @@
         <item>Satyrs embody a fusion of humanoid civilization with the freedom of wild beasts.</item>
     </string-array>
     <integer-array name="data_photo">
-        <item>@drawable/ahmad_dahlan</item>
-        <item>@drawable/ahmad_yani</item>
-        <item>@drawable/bung_tomo</item>
-        <item>@drawable/gatot_subroto</item>
-        <item>@drawable/ki_hadjar_dewantara</item>
-        <item>@drawable/mohammad_hatta</item>
-        <item>@drawable/sudirman</item>
-        <item>https://www.dndbeyond.com/avatars/thumbnails/10836/174/340/340/637266329893978901.png</item>
-        <item>@drawable/supomo</item>
+        <item>@drawable/dragonborn</item>
+        <item>@drawable/dwarf</item>
+        <item>@drawable/elf</item>
+        <item>@drawable/gnome</item>
+        <item>@drawable/halfelf</item>
+        <item>@drawable/halfing</item>
+        <item>@drawable/halforc</item>
+        <item>@drawable/human</item>
+        <item>@drawable/tiefling</item>
+        <item>@drawable/leonin</item>
+        <item>@drawable/satyr</item>
     </integer-array>
 </resources>
