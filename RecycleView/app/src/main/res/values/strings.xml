@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">MyRecyclerView</string>
-
+    <string name="app_name">RecyclerView</string>
     <string name="heroes_name">Nama Pahlawan</string>
     <string name="description">Deskripsi</string>
+    <string name="list">List</string>
+    <string name="grid">Grid</string>
     <string-array name="data_name">
         <item>Ahmad Dahlan</item>
         <item>Ahmad Yani</item>
