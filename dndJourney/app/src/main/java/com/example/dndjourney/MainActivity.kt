@@ -2,6 +2,7 @@ package com.example.dndjourney
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -37,5 +38,10 @@ class MainActivity : AppCompatActivity() {
         rvRaces.layoutManager = LinearLayoutManager(this)
         val listHeroAdapter = ListRaceAdapter(list)
         rvRaces.adapter = listHeroAdapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main,menu)
+        return super.onCreateOptionsMenu(menu)
     }
 }

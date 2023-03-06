@@ -3,6 +3,7 @@
 
     <string name="races_name">Nama Ras</string>
     <string name="description">Deskripsi</string>
+    <string name="about">About</string>
     <string-array name="data_name">
         <item>Dragonborn</item>
         <item>Dwarf</item>
