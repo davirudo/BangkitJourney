@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">dndJourney</string>
+    <string name="app_name">List of Races in DnD</string>
 
     <string name="races_name">Nama Ras</string>
     <string name="description">Deskripsi</string>
+    
     <string name="about">About</string>
+    <string name="nama">Depit</string>
+    <string name="email">Depit@uwu</string>
+    
     <string-array name="data_name">
         <item>Dragonborn</item>
         <item>Dwarf</item>
