@@ -18,6 +18,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var tvDetailDescription: TextView
     private lateinit var ivDetailPhoto: ImageView
     private lateinit var actionShare: ImageView
+    private lateinit var tvDetailFull: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,12 +32,14 @@ class DetailActivity : AppCompatActivity() {
         tvDetailName = findViewById(R.id.tv_detail_name)
         tvDetailDescription = findViewById(R.id.tv_detail_description)
         ivDetailPhoto = findViewById(R.id.iv_detail_photo)
+        tvDetailFull = findViewById(R.id.tv_detail_full)
         actionShare = findViewById(R.id.action_share)
 
 
         dataRace?.let {
             tvDetailName.text = dataRace.name
             tvDetailDescription.text = dataRace.description
+            tvDetailFull.text = dataRace.full
             ivDetailPhoto.setImageResource(dataRace.photo)
         }
 

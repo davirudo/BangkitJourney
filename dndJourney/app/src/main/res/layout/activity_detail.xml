@@ -50,6 +50,16 @@
             android:gravity="fill"
             android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/tv_detail_full"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="25dp"
+            android:layout_marginTop="15dp"
+            android:text="full"
+            android:gravity="fill"
+            android:textSize="16sp" />
+
         <ImageView
             android:id="@+id/action_share"
             android:layout_width="40dp"

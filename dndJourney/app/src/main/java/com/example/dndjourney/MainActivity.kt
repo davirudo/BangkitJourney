@@ -31,9 +31,10 @@ class MainActivity : AppCompatActivity() {
         val dataName = resources.getStringArray(R.array.data_name)
         val dataDescription = resources.getStringArray(R.array.data_description)
         val dataPhoto = resources.obtainTypedArray(R.array.data_photo)
+        val dataFull = resources.getStringArray(R.array.data_full)
         val listRace = ArrayList<Race>()
         for (i in dataName.indices) {
-            val hero = Race(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1))
+            val hero = Race(dataName[i], dataDescription[i], dataPhoto.getResourceId(i, -1), dataFull[i])
             listRace.add(hero)
         }
         return listRace
