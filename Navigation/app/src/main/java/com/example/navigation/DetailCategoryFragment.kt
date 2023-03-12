@@ -5,30 +5,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
-import com.example.navigation.databinding.FragmentCategoryBinding
+import com.example.navigation.databinding.FragmentDetailCategoryBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-class CategoryFragment : Fragment() {
+class DetailCategoryFragment : Fragment() {
 
-    private var _binding: FragmentCategoryBinding? = null
+    private var _binding: FragmentDetailCategoryBinding? = null
     private val binding get() = _binding!!
-
-    companion object {
-        val EXTRA_NAME = "extra_name"
-        val EXTRA_STOCK = "extra_stock"
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentCategoryBinding.inflate(inflater, container,false)
+        _binding = FragmentDetailCategoryBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -36,16 +30,12 @@ class CategoryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnCategoryLifestyle.setOnClickListener { view ->
-            val mBundle = Bundle()
-            mBundle.putString(EXTRA_NAME, "Milkita")
-            mBundle.putLong(EXTRA_STOCK, 150000)
-            view.findNavController().navigate(R.id.action_categoryFragment_to_detailCategoryFragment, mBundle)
-        }
+        val dataName = arguments?.getString(CategoryFragment.EXTRA_NAME)
+        val dataDescription = arguments?.getLong(CategoryFragment.EXTRA_STOCK)
+
+        binding.tvCategoryName.text = dataName
+        binding.tvCategoryDescription.text = "Stock : $dataDescription"
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
+
 }
