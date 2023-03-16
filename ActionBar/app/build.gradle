@@ -6,6 +6,9 @@ plugins {
 android {
     namespace 'com.example.actionbar'
     compileSdk 33
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId "com.example.actionbar"
