@@ -30,16 +30,14 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        mainViewModel.restaurant.observe(this, { restaurant ->
-            setRestaurantData(restaurant)
-        })
-
-
-
         val layoutManager = LinearLayoutManager(this)
         binding.rvReview.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvReview.addItemDecoration(itemDecoration)
+
+        mainViewModel.restaurant.observe(this, { restaurant ->
+            setRestaurantData(restaurant)
+        })
 
         mainViewModel.listReview.observe(this, { consumerReviews ->
             setReviewData(consumerReviews)

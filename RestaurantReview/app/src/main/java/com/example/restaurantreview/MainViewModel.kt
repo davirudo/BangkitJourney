@@ -12,14 +12,14 @@ class MainViewModel : ViewModel() {
     private val _restaurant = MutableLiveData<Restaurant>()
     val restaurant: LiveData<Restaurant> = _restaurant
 
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarText: LiveData<Event<String>> = _snackbarText
+
     private val _listReview = MutableLiveData<List<CustomerReviewsItem>>()
     val listReview: LiveData<List<CustomerReviewsItem>> = _listReview
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
-
-    private val _snackbarText = MutableLiveData<Event<String>>()
-    val snackbarText: LiveData<Event<String>> = _snackbarText
 
     companion object{
         private const val TAG = "MainViewModel"
@@ -29,6 +29,7 @@ class MainViewModel : ViewModel() {
     init {
         findRestaurant()
     }
+
 
     private fun findRestaurant() {
         _isLoading.value = true
@@ -53,7 +54,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-     fun postReview(review: String) {
+    fun postReview(review: String) {
         _isLoading.value = true
         val client = ApiConfig.getApiService().postReview(RESTAURANT_ID, "Emuach", review)
         client.enqueue(object : Callback<PostReviewResponse> {
