@@ -18,6 +18,9 @@ class MainViewModel : ViewModel() {
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
 
+    private val _snackbarText = MutableLiveData<Event<String>>()
+    val snackbarText: LiveData<Event<String>> = _snackbarText
+
     companion object{
         private const val TAG = "MainViewModel"
         private const val RESTAURANT_ID = "uewq1zg2zlskfw1e867"
@@ -52,7 +55,7 @@ class MainViewModel : ViewModel() {
 
      fun postReview(review: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().postReview(RESTAURANT_ID, "Dicoding", review)
+        val client = ApiConfig.getApiService().postReview(RESTAURANT_ID, "Emuach", review)
         client.enqueue(object : Callback<PostReviewResponse> {
             override fun onResponse(
                 call: Call<PostReviewResponse>,
@@ -61,6 +64,7 @@ class MainViewModel : ViewModel() {
                 _isLoading.value = false
                 if (response.isSuccessful) {
                     _listReview.value = response.body()?.customerReviews
+                    _snackbarText.value = Event(response.body()?.message.toString())
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")
                 }
@@ -68,7 +72,7 @@ class MainViewModel : ViewModel() {
 
             override fun onFailure(call: Call<PostReviewResponse>, t: Throwable) {
                 _isLoading.value = false
-                Log.e(TAG, "onFailure: ${t.message}")
+                Log.e(TAG, "onFailure: ${t.message.toString()}")
             }
         })
     }
