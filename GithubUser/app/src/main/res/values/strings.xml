@@ -2,4 +2,8 @@
     <string name="app_name">GithubUser</string>
     <string name="user_name">Nama User</string>
     <string name="search">Cari User</string>
+    <string name="user_id">ID User</string>
+    <string name="follower">Follower</string>
+    <string name="followed">Followed</string>
+    <string name="angka">123</string>
 </resources>
