@@ -37,7 +37,7 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
             binding.root.setOnClickListener{
                 val intent = Intent(itemView.context, DetailActivity::class.java)
                 intent.putExtra(DetailActivity.KEY, item.login)
-                itemView.context.startActivities(arrayOf(intent))
+                itemView.context.startActivity(intent)
             }
         }
 

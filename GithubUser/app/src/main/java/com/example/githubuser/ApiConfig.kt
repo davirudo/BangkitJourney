@@ -14,7 +14,7 @@ class ApiConfig {
             val authInterceptor = Interceptor { chain ->
                 val req = chain.request()
                 val requestHeaders = req.newBuilder()
-                    .addHeader("Authorization", "token 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")
+                    .addHeader("Authorization", "token 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")
                     .build()
                 chain.proceed(requestHeaders)
             }

@@ -24,7 +24,7 @@ class MainViewModel : ViewModel() {
         findUser()
     }
 
-    fun findUser(q : String = "davirudo") {
+    fun findUser(q : String = "eko") {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(q)
         client.enqueue(object : Callback<UserResponse> {

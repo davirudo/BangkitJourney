@@ -12,6 +12,23 @@ interface ApiService {
     fun getUser(
         @Query("q") q: String
     ): Call<UserResponse>
+
+    ////////////////////////////////////////////////////////
+
+    @GET("users/{username}")
+    fun getDetailUser(
+        @Path("username") username: String
+    ): Call<DetailResponse>
+
+    @GET("users/{username}/followers")
+    fun getFollowers(
+        @Path("username") username: String
+    ): Call<List<ItemsItem>>
+
+    @GET("users/{username}/following")
+    fun getFollowed(
+        @Path("username") username: String
+    ): Call<List<ItemsItem>>
 }
 
 // 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
