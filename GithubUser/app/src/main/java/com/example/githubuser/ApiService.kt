@@ -8,12 +8,9 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("search/users")
-//    @Headers("Authorization: token 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")
     fun getUser(
         @Query("q") q: String
     ): Call<UserResponse>
-
-    ////////////////////////////////////////////////////////
 
     @GET("users/{username}")
     fun getDetailUser(
@@ -30,5 +27,3 @@ interface ApiService {
         @Path("username") username: String
     ): Call<List<ItemsItem>>
 }
-
-// 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

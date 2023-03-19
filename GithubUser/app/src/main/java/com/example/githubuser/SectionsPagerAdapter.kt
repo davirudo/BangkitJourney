@@ -1,7 +1,6 @@
 package com.example.githubuser
 
 import android.os.Bundle
-import android.provider.Settings.Global.putInt
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
