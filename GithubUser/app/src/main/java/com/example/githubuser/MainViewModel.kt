@@ -18,14 +18,13 @@ class MainViewModel : ViewModel() {
 
     companion object {
         private const val TAG = "MainActivity"
-        private const val USERNAME = "David"
     }
 
     init {
         findUser()
     }
 
-    private fun findUser(q : String = "David") {
+    fun findUser(q : String = "davirudo") {
         _isLoading.value = true
         val client = ApiConfig.getApiService().getUser(q)
         client.enqueue(object : Callback<UserResponse> {

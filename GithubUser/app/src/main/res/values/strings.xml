@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GithubUser</string>
     <string name="user_name">Nama User</string>
+    <string name="search">Cari User</string>
 </resources>
