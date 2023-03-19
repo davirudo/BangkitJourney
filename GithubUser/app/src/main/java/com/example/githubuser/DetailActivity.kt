@@ -62,7 +62,6 @@ class DetailActivity : AppCompatActivity() {
         binding.apply {
             Glide.with(binding.root)
                 .load(detail.avatarUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(detailAvatar)
             tvNama.text = detail.name
             tvId.text = detail.login
