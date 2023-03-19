@@ -12,22 +12,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var adapter: UserAdapter
 
-    companion object {
-        private const val TAG = "MainActivity"
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val layoutManager = LinearLayoutManager(this)
-        binding.rvAkun.layoutManager = layoutManager
-        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
-        binding.rvAkun.addItemDecoration(itemDecoration)
 
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
 
@@ -37,9 +28,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.isLoading.observe(this, {
             showLoading(it)
         })
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.rvAkun.layoutManager = layoutManager
+        val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
+        binding.rvAkun.addItemDecoration(itemDecoration)
     }
 
-    private fun setUserData(listDataUser: ArrayList<ItemsItem>) {
+    private fun setUserData(listDataUser: List<ItemsItem>) {
         val adapter = UserAdapter(listDataUser)
         binding.rvAkun.adapter = adapter
     }

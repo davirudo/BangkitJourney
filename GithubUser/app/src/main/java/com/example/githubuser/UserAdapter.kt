@@ -10,7 +10,7 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.githubuser.databinding.ItemUserBinding
 
 
-class UserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = ItemUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -36,7 +36,6 @@ class UserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView.Ada
                 Glide.with(binding.root)
                     .load(item.avatarUrl)
                     .transition(DrawableTransitionOptions.withCrossFade())
-                    .circleCrop()
                     .into(imgItemPhoto)
                 binding.tvItemName.text = item.login
             }

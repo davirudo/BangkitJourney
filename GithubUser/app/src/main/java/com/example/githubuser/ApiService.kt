@@ -4,12 +4,13 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface ApiService {
-    @GET("/users/{username}")
-    @Headers("Authorization: token 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")
+    @GET("search/users")
+//    @Headers("Authorization: token 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")
     fun getUser(
-        @Path("username") username: String
+        @Query("q") q: String
     ): Call<UserResponse>
 }
 
