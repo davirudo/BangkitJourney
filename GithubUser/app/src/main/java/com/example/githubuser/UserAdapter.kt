@@ -18,19 +18,17 @@ class UserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView.Ada
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-    //        val item = listUser[position]
-    //        holder.bind(item)
+            val item = listUser[position]
+            holder.bind(item)
 
-    //        holder.itemView.setOnClickListener{
-    //            val intent = Intent(holder.itemView.context, DetailUserActivity::class.java)
-    //            intent.putExtra("dapit", item.login)
-    //            holder.itemView.context.startActivities(intent)
-    //        }
+//            holder.itemView.setOnClickListener{
+//                val intent = Intent(holder.itemView.context, DetailUserActivity::class.java)
+//                intent.putExtra("dapit", item.login)
+//                holder.itemView.context.startActivities(intent)
+//            }
     }
 
-    override fun getItemCount(): Int {
-        listUser.size
-    }
+    override fun getItemCount() = listUser.size
 
     class ViewHolder(private val binding: ItemUserBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemsItem) {
@@ -39,8 +37,8 @@ class UserAdapter(private val listUser: ArrayList<ItemsItem>) : RecyclerView.Ada
                     .load(item.avatarUrl)
                     .transition(DrawableTransitionOptions.withCrossFade())
                     .circleCrop()
-                    .into(itemPhoto)
-                binding.tv
+                    .into(imgItemPhoto)
+                binding.tvItemName.text = item.login
             }
         }
     }
