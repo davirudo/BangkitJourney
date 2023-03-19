@@ -6,4 +6,9 @@
     <string name="follower">Follower</string>
     <string name="followed">Followed</string>
     <string name="angka">123</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_tab_text">This is Tab %1$d</string>
+    <string name="tab_text_1">Follower</string>
+    <string name="tab_text_2">Followed</string>
 </resources>

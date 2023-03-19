@@ -3,10 +3,14 @@ package com.example.githubuser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
+import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.githubuser.databinding.ActivityDetailBinding
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class DetailActivity : AppCompatActivity() {
 
@@ -15,18 +19,21 @@ class DetailActivity : AppCompatActivity() {
 
     companion object {
         const val KEY = "key_name"
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.tab_text_1,
+            R.string.tab_text_2
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
 
-        var getID = intent.getStringExtra(KEY)
-
+        val getID = intent.getStringExtra(KEY)
 
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
 
@@ -38,7 +45,16 @@ class DetailActivity : AppCompatActivity() {
             showLoading(it)
         })
 
+        val sectionsPagerAdapter = SectionsPagerAdapter(this)
+        sectionsPagerAdapter.username = getID.toString()
 
+        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = findViewById(R.id.tabs)
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 0f
 
     }
 
