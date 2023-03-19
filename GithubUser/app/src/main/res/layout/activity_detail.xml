@@ -50,62 +50,62 @@
     <TextView
         android:id="@+id/tv_angka_follower"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="@string/angka"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_follower"
-        app:layout_constraintEnd_toStartOf="@+id/tv_follower"
-        app:layout_constraintTop_toTopOf="@+id/tv_follower" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
 
     <TextView
         android:id="@+id/tv_follower"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
-        android:text="@string/follower"
+        android:text="@string/followers"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_angka_follower"
+        app:layout_constraintStart_toEndOf="@+id/tv_angka_follower"
+        app:layout_constraintTop_toTopOf="@+id/tv_angka_follower" />
 
     <TextView
         android:id="@+id/tv_angka_followed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="@string/angka"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/tv_id"
-        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
+        app:layout_constraintBottom_toBottomOf="@+id/tv_followed"
+        app:layout_constraintEnd_toStartOf="@+id/tv_followed"
+        app:layout_constraintTop_toTopOf="@+id/tv_followed" />
 
     <TextView
         android:id="@+id/tv_followed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="sans-serif-condensed"
         android:gravity="center"
         android:text="@string/followed"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/tv_angka_followed"
-        app:layout_constraintStart_toEndOf="@+id/tv_angka_followed"
-        app:layout_constraintTop_toTopOf="@+id/tv_angka_followed" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"

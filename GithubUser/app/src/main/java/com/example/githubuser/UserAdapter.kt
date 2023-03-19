@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.githubuser.databinding.ItemUserBinding
 
 
@@ -28,7 +27,6 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
             binding.apply {
                 Glide.with(binding.root)
                     .load(item.avatarUrl)
-                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(imgItemPhoto)
                 binding.tvItemName.text = item.login
             }
