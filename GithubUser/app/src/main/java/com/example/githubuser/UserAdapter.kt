@@ -20,12 +20,6 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = listUser[position]
             holder.bind(item)
-
-//            holder.itemView.setOnClickListener{
-//                val intent = Intent(holder.itemView.context, DetailUserActivity::class.java)
-//                intent.putExtra("dapit", item.login)
-//                holder.itemView.context.startActivities(intent)
-//            }
     }
 
     override fun getItemCount() = listUser.size
@@ -39,7 +33,14 @@ class UserAdapter(private val listUser: List<ItemsItem>) : RecyclerView.Adapter<
                     .into(imgItemPhoto)
                 binding.tvItemName.text = item.login
             }
+
+            binding.root.setOnClickListener{
+                val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.KEY, item.login)
+                itemView.context.startActivities(arrayOf(intent))
+            }
         }
+
     }
 
 }
