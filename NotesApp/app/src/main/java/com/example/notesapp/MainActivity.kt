@@ -26,8 +26,8 @@ class MainActivity : AppCompatActivity() {
     val resultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
-        if(result.data != null) {
-            //akan dipanggil jika request codenya ADD
+        if (result.data != null) {
+            // Akan dipanggil jika request codenya ADD
             when (result.resultCode) {
                 NoteAddUpdateActivity.RESULT_ADD -> {
                     val note = result.data?.getParcelableExtra<Note>(NoteAddUpdateActivity.EXTRA_NOTE) as Note
@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    companion object {
+        private const val EXTRA_STATE = "EXTRA_STATE"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -61,9 +65,29 @@ class MainActivity : AppCompatActivity() {
         binding.rvNotes.layoutManager = LinearLayoutManager(this)
         binding.rvNotes.setHasFixedSize(true)
 
-        loadNotesAsync()
+        adapter = NoteAdapter(object : NoteAdapter.OnItemClickCallback {
+            override fun onItemClicked(selectedNote: Note?, position: Int?) {
+                val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
+                intent.putExtra(NoteAddUpdateActivity.EXTRA_NOTE, selectedNote)
+                intent.putExtra(NoteAddUpdateActivity.EXTRA_POSITION, position)
+                resultLauncher.launch(intent)
+            }
+        })
+        binding.rvNotes.adapter = adapter
 
+        binding.fabAdd.setOnClickListener {
+            val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
+            resultLauncher.launch(intent)
+        }
 
+        if (savedInstanceState == null) {
+            loadNotesAsync()
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<Note>(EXTRA_STATE)
+            if (list != null) {
+                adapter.listNotes = list
+            }
+        }
     }
 
     private fun loadNotesAsync() {
@@ -79,12 +103,17 @@ class MainActivity : AppCompatActivity() {
             val notes = deferredNotes.await()
             if (notes.size > 0) {
                 adapter.listNotes = notes
-                } else {
-                    adapter.listNotes = ArrayList()
+            } else {
+                adapter.listNotes = ArrayList()
                 showSnackbarMessage("Tidak ada data saat ini")
             }
             noteHelper.close()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.listNotes)
     }
 
     private fun showSnackbarMessage(message: String) {
