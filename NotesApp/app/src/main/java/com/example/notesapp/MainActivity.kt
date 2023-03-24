@@ -3,13 +3,20 @@ package com.example.notesapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.notesapp.adapter.NoteAdapter
 import com.example.notesapp.databinding.ActivityMainBinding
+import com.example.notesapp.db.NoteHelper
 import com.example.notesapp.entity.Note
+import com.example.notesapp.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,7 +61,30 @@ class MainActivity : AppCompatActivity() {
         binding.rvNotes.layoutManager = LinearLayoutManager(this)
         binding.rvNotes.setHasFixedSize(true)
 
+        loadNotesAsync()
 
+
+    }
+
+    private fun loadNotesAsync() {
+        lifecycleScope.launch {
+            binding.progressbar.visibility = View.VISIBLE
+            val noteHelper = NoteHelper.getInstance(applicationContext)
+            noteHelper.open()
+            val deferredNotes = async(Dispatchers.IO) {
+                val cursor = noteHelper.queryAll()
+                MappingHelper.mapCursorToArrayList(cursor)
+            }
+            binding.progressbar.visibility = View.INVISIBLE
+            val notes = deferredNotes.await()
+            if (notes.size > 0) {
+                adapter.listNotes = notes
+                } else {
+                    adapter.listNotes = ArrayList()
+                showSnackbarMessage("Tidak ada data saat ini")
+            }
+            noteHelper.close()
+        }
     }
 
     private fun showSnackbarMessage(message: String) {
