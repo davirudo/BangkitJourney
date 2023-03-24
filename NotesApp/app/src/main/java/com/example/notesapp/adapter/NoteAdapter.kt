@@ -44,9 +44,7 @@ class NoteAdapter(private  val onItemClickCallback: OnItemClickCallback) : Recyc
         holder.bind(listNotes[position])
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = this.listNotes.size
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ItemNoteBinding.bind(itemView)
