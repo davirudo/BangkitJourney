@@ -1,23 +1,11 @@
 package com.example.catatapp.ui.insert
 
-import android.app.Application
-import androidx.lifecycle.ViewModel
-import com.example.catatapp.database.Note
-import com.example.catatapp.repository.NoteRepository
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
 
-class NoteAddUpdateActivity(application: Application): ViewModel() {
-
-    private  val mNoteRepository: NoteRepository = NoteRepository(application)
-
-    fun insert(note: Note) {
-        mNoteRepository.insert(note)
-    }
-
-    fun update(note: Note) {
-        mNoteRepository.update(note)
-    }
-
-    fun delete(note: Note) {
-        mNoteRepository.delete(note)
+class NoteAddUpdateActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_note_add_update)
     }
 }
