@@ -1,12 +1,15 @@
 package com.example.catatapp.ui.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Note
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.catatapp.R
 import com.example.catatapp.ViewModelFactory
 import com.example.catatapp.databinding.ActivityMainBinding
+import com.example.catatapp.ui.insert.NoteAddUpdateActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,6 +35,13 @@ class MainActivity : AppCompatActivity() {
         binding?. rvNotes?.layoutManager = LinearLayoutManager(this)
         binding?.rvNotes?.setHasFixedSize(true)
         binding?.rvNotes?.adapter = adapter
+
+        binding?.fabAdd?.setOnClickListener {view ->
+            if (view.id == R.id.fab_add) {
+                val intent = Intent(this@MainActivity, NoteAddUpdateActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     private fun obtainViewModel(actiivity: AppCompatActivity): MainViewModel {
