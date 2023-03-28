@@ -2,12 +2,14 @@ package com.example.catatapp.ui.insert
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.catatapp.R
 import com.example.catatapp.ViewModelFactory
 import com.example.catatapp.database.Note
 import com.example.catatapp.databinding.ActivityNoteAddUpdateBinding
+import com.example.catatapp.helper.DateHelper
 
 class NoteAddUpdateActivity : AppCompatActivity() {
 
@@ -69,8 +71,38 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         ///
 
         binding?.btnSubmit?.setOnClickListener {
-            val title = binding?.edtTitle?.
+            val title = binding?.edtTitle?.text.toString().trim()
+            val description = binding?.edtDescription?.text.toString().trim()
+            when {
+                title.isEmpty() -> {
+                    binding?.edtTitle?.error = getString(R.string.empty)
+                }
+                description.isEmpty() -> {
+                    binding?.edtDescription?.error = getString(R.string.empty)
+                }
+                else -> {
+                    note.let { note ->
+                        note?.title = title
+                        note?.description = description
+                    }
+                    if (isEdit) {
+                        noteeAddUpdateViewModel.update(note as Note)
+                        showToast(getString(R.string.change))
+                    } else {
+                        note.let { note ->
+                            note?.date = DateHelper.getCurrentDate()
+                        }
+                        noteeAddUpdateViewModel.insert(note as Note)
+                        showToast(getString(R.string.added))
+                    }
+                    finish()
+                }
+            }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     //ViewModel dengan Activity
