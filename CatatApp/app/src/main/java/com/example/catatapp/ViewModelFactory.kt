@@ -11,6 +11,7 @@ class ViewModelFactory private constructor(private val mApplication: Application
     companion object {
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
+
         @JvmStatic
         fun getInstance(application: Application): ViewModelFactory {
             if (INSTANCE == null) {
@@ -26,7 +27,7 @@ class ViewModelFactory private constructor(private val mApplication: Application
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
             return MainViewModel(mApplication) as T
-        } else if (modelClass.isAssignableFrom(NoteAddUpdateActivity::class.java)) {
+        } else if (modelClass.isAssignableFrom(NoteAddUpdateViewModel::class.java)) {
             return NoteAddUpdateViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")

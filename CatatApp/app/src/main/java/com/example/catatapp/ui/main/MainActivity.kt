@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = NoteAdapter()
 
-        binding?. rvNotes?.layoutManager = LinearLayoutManager(this)
+        binding?.rvNotes?.layoutManager = LinearLayoutManager(this)
         binding?.rvNotes?.setHasFixedSize(true)
         binding?.rvNotes?.adapter = adapter
 
@@ -44,9 +44,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun obtainViewModel(actiivity: AppCompatActivity): MainViewModel {
-        val factory = ViewModelFactory.getInstance(actiivity.application)
-        return ViewModelProvider(actiivity, factory).get(MainViewModel::class.java)
+    private fun obtainViewModel(activity: AppCompatActivity): MainViewModel {
+        val factory = ViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(MainViewModel::class.java)
     }
 
     override fun onDestroy() {
