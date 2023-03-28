@@ -25,7 +25,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
     private var note: Note? = null
 
     //ViewModel dengan Activity
-    private lateinit var noteeAddUpdateViewModel: NoteAddUpdateViewModel
+    private lateinit var noteAddUpdateViewModel: NoteAddUpdateViewModel
 
     private var _activityNotAddUpdateBinding: ActivityNoteAddUpdateBinding? = null
     private val binding get() = _activityNotAddUpdateBinding
@@ -38,7 +38,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
         _activityNotAddUpdateBinding = ActivityNoteAddUpdateBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
-        noteeAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
+        noteAddUpdateViewModel = obtainViewModel(this@NoteAddUpdateActivity)
         ///
 
         //menambahkan, memperbarui, dan menghapus item
@@ -88,13 +88,13 @@ class NoteAddUpdateActivity : AppCompatActivity() {
                         note?.description = description
                     }
                     if (isEdit) {
-                        noteeAddUpdateViewModel.update(note as Note)
+                        noteAddUpdateViewModel.update(note as Note)
                         showToast(getString(R.string.change))
                     } else {
                         note.let { note ->
                             note?.date = DateHelper.getCurrentDate()
                         }
-                        noteeAddUpdateViewModel.insert(note as Note)
+                        noteAddUpdateViewModel.insert(note as Note)
                         showToast(getString(R.string.added))
                     }
                     finish()
@@ -157,7 +157,7 @@ class NoteAddUpdateActivity : AppCompatActivity() {
             setCancelable(false)
             setPositiveButton(getString(R.string.yes)) { _, _ ->
                 if (!isDialogClose) {
-                    noteeAddUpdateViewModel.delete(note as Note)
+                    noteAddUpdateViewModel.delete(note as Note)
                     showToast(getString(R.string.deleted))
                 }
                 finish()
