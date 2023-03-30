@@ -25,10 +25,10 @@ class SmsReceiverActivity : AppCompatActivity() {
         }
 
         val senderNo = intent.getStringExtra(EXTRA_SMS_NO)
-        val senderMessage = intent.getStringArrayExtra(EXTRA_SMS_MESSAGE)
+        val senderMessage = intent.getStringExtra(EXTRA_SMS_MESSAGE)
 
-        binding?.tvFrom.text = getString(R.string.from, senderNo)
-        binding?.tvMessage.text = senderMessage
+        binding?.tvFrom?.text = getString(R.string.from, senderNo)
+        binding?.tvMessage?.text = senderMessage
     }
 
     override fun onDestroy() {
