@@ -42,11 +42,11 @@ class SmsReceiver : BroadcastReceiver() {
     }
 
     private fun getIncomingMessage(aObject: Any, bundle: Bundle): SmsMessage {
-        val currentSms: SmsMessage
-        val format = bundle.getString("format")
-        currentSms = if (Build.VERSION.SDK_INT >= 23 ) {
-            SmsMessage.createFromPdu(aObject as ByteArray, format)
-        } else SmsMessage.createFromPdu(aObject as ByteArray)
-        return currentSms
+        val currentSMS: SmsMessage
+        if (Build.VERSION.SDK_INT >= 23) {
+            val format = bundle.getString("format")
+            currentSMS = SmsMessage.createFromPdu(aObject as ByteArray, format)
+        } else currentSMS = SmsMessage.createFromPdu(aObject as ByteArray)
+        return currentSMS
     }
 }
