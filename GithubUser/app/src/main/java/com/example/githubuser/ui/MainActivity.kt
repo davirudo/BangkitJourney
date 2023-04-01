@@ -1,4 +1,4 @@
-package com.example.githubuser
+package com.example.githubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
@@ -10,7 +10,11 @@ import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.githubuser.ItemsItem
+import com.example.githubuser.R
+import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityMainBinding
+import com.example.githubuser.model.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            MainViewModel::class.java)
 
         mainViewModel.listUser.observe(this, {
             setUserData(it)

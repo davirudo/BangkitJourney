@@ -1,4 +1,4 @@
-package com.example.githubuser
+package com.example.githubuser.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,11 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
+import com.example.githubuser.R
+import com.example.githubuser.adapter.SectionsPagerAdapter
+import com.example.githubuser.response.DetailResponse
 import com.example.githubuser.databinding.ActivityDetailBinding
+import com.example.githubuser.model.DetailViewModel
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -24,7 +28,8 @@ class DetailActivity : AppCompatActivity() {
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailViewModel::class.java)
+        detailViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            DetailViewModel::class.java)
 
         getID?.let { detailViewModel.detailUser(it)}
         detailViewModel.detailUser.observe(this) {

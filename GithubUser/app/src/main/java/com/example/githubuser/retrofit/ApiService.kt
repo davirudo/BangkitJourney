@@ -1,5 +1,8 @@
-package com.example.githubuser
+package com.example.githubuser.retrofit
 
+import com.example.githubuser.ItemsItem
+import com.example.githubuser.UserResponse
+import com.example.githubuser.response.DetailResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
