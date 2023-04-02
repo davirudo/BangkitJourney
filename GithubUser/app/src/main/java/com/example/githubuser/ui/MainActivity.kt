@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -12,7 +11,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
-import androidx.core.content.ContextCompat
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
@@ -26,7 +24,6 @@ import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.model.MainViewModel
 import com.example.githubuser.model.ThemeViewModelFactory
-import com.example.githubuser.model.ViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
@@ -43,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     var btnVisible = false
     var isDark = false
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

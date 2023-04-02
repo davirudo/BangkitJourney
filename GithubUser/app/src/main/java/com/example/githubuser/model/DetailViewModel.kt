@@ -113,7 +113,6 @@ class DetailViewModel(application: Application) : ViewModel() {
         })
     }
 
-    //tambahin insert fav
     fun addFav(fav: Fav) {
         mFavRepository.insert(fav)
     }
@@ -122,7 +121,6 @@ class DetailViewModel(application: Application) : ViewModel() {
         mFavRepository.delete(fav)
     }
 
-    //memanggil semua fav berdasarkan username
     fun getFavByUser(fav: String): LiveData<Fav> = mFavRepository.getFavByUser(fav)
 
 }

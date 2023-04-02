@@ -13,5 +13,4 @@ class ThemeViewModelFactory(private val pref: SettingPreferences): ViewModelProv
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }
-
 }
