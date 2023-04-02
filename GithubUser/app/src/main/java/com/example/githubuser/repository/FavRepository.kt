@@ -20,7 +20,7 @@ class FavRepository(application: Application) {
 
     fun getAllFav(): LiveData<List<Fav>> = mFavDao.getAllFav()
 
-    fun getFavByUser(fav: Fav): LiveData<Fav> = mFavDao.getFavByUser(fav)
+    fun getFavByUser(fav: String): LiveData<Fav> = mFavDao.getFavByUser(fav)
 
     fun insert(fav: Fav) {
         executorService.execute { mFavDao.insert(fav)}

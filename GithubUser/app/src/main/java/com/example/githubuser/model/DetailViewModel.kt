@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuser.retrofit.ApiConfig
 import com.example.githubuser.ItemsItem
+import com.example.githubuser.repository.FavRepository
 import com.example.githubuser.response.DetailResponse
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,6 +25,8 @@ class DetailViewModel : ViewModel() {
 
     private val _followedUser = MutableLiveData<List<ItemsItem>>()
     val followedUser: LiveData<List<ItemsItem>> = _followedUser
+
+//    private val mFavRepository: FavRepository = FavRepository(application)
 
     companion object {
         private const val TAG = "DetailActivity"
