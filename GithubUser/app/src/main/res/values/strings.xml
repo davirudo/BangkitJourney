@@ -1,11 +1,13 @@
 <resources>
-    <string name="app_name">GithubUser</string>
+    <string name="app_name">Fav Github User</string>
     <string name="user_name">Nama User</string>
     <string name="search">Cari User</string>
     <string name="user_id">ID User</string>
     <string name="followers">Followers</string>
     <string name="followed">Followed</string>
+    <string name="favorite">Favorite</string>
     <string name="angka">123</string>
+    <string name="splashtv">find your\nfavorite Github User!</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_tab_text">This is Tab %1$d</string>
