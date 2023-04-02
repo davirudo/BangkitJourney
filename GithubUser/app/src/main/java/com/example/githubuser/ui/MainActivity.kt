@@ -1,43 +1,56 @@
 package com.example.githubuser.ui
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubuser.ItemsItem
 import com.example.githubuser.R
+import com.example.githubuser.SettingPreferences
 import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.model.MainViewModel
+import com.example.githubuser.model.ThemeViewModelFactory
+import com.example.githubuser.model.ViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mainViewModel: MainViewModel
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProvider(this, ViewModelProvider.NewInstanceFactory())[MainViewModel::class.java]
+    }
 
     lateinit var themeBtn: FloatingActionButton
     lateinit var favBtn: FloatingActionButton
     lateinit var menuBtn: FloatingActionButton
     var btnVisible = false
+    var isDark = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
-            MainViewModel::class.java)
+        val pref = SettingPreferences.getInstance(dataStore)
+        val mainViewModel = ViewModelProvider(this, ThemeViewModelFactory(pref))[MainViewModel::class.java]
 
         mainViewModel.listUser.observe(this, {
             setUserData(it)
@@ -76,14 +89,37 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        mainViewModel.getThemeSettings().observe(this) {
+            if (it) {
+                isDark = true
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
 
-        themeBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Theme belum berubah..", Toast.LENGTH_LONG).show()
+            } else {
+                isDark = false
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
+            }
         }
 
         favBtn.setOnClickListener {
             val intent = Intent(this@MainActivity, FavActivity::class.java)
             startActivity(intent)
+        }
+
+        themeBtn.setOnClickListener {
+            checkTheme()
+        }
+
+
+    }
+
+    private fun checkTheme() {
+        if (isDark) {
+            mainViewModel.saveThemeSetting(false)
+            Toast.makeText(this, "Light Mode", Toast.LENGTH_SHORT).show()
+        } else {
+            mainViewModel.saveThemeSetting(true)
+            Toast.makeText(this, "Dark Mode", Toast.LENGTH_SHORT).show()
         }
     }
 
