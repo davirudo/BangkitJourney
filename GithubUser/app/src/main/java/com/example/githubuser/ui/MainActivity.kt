@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -15,11 +16,17 @@ import com.example.githubuser.R
 import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityMainBinding
 import com.example.githubuser.model.MainViewModel
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
+
+    lateinit var themeBtn: FloatingActionButton
+    lateinit var favBtn: FloatingActionButton
+    lateinit var menuBtn: FloatingActionButton
+    var btnVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +49,39 @@ class MainActivity : AppCompatActivity() {
         binding.rvAkun.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvAkun.addItemDecoration(itemDecoration)
+
+        menuBtn = findViewById(R.id.menuBtn)
+        themeBtn = findViewById(R.id.themeBtn)
+        favBtn = findViewById(R.id.favBtn)
+        btnVisible = false
+
+        menuBtn.setOnClickListener {
+            if (!btnVisible) {
+                themeBtn.show()
+                favBtn.show()
+
+                themeBtn.visibility = View.VISIBLE
+                favBtn.visibility = View.VISIBLE
+                menuBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_clear))
+                btnVisible = true
+            } else {
+                themeBtn.hide()
+                favBtn.hide()
+
+                themeBtn.visibility = View.GONE
+                favBtn.visibility = View.GONE
+                menuBtn.setImageDrawable(resources.getDrawable(R.drawable.ic_menu))
+                btnVisible = false
+            }
+        }
+
+        themeBtn.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Home clicked..", Toast.LENGTH_LONG).show()
+        }
+
+        favBtn.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Settings clicked..", Toast.LENGTH_LONG).show()
+        }
     }
 
     private fun setUserData(listDataUser: List<ItemsItem>) {
