@@ -2,6 +2,7 @@ package com.example.githubuser.ui
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -75,12 +76,14 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+
         themeBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Home clicked..", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@MainActivity, "Theme belum berubah..", Toast.LENGTH_LONG).show()
         }
 
         favBtn.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Settings clicked..", Toast.LENGTH_LONG).show()
+            val intent = Intent(this@MainActivity, FavActivity::class.java)
+            startActivity(intent)
         }
     }
 
