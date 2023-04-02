@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
-    android:id="@+id/fav"
+    android:id="@+id/favDetailBtn"
     android:title="@string/favorite"
     android:icon="@drawable/ic_fav_filled"
     app:showAsAction="always"/>
