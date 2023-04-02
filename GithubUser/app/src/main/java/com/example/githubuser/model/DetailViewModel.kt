@@ -1,18 +1,20 @@
 package com.example.githubuser.model
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuser.retrofit.ApiConfig
 import com.example.githubuser.ItemsItem
+import com.example.githubuser.database.Fav
 import com.example.githubuser.repository.FavRepository
 import com.example.githubuser.response.DetailResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetailViewModel : ViewModel() {
+class DetailViewModel(application: Application) : ViewModel() {
 
     private val _detailUser = MutableLiveData<DetailResponse>()
     val detailUser: LiveData<DetailResponse> = _detailUser
@@ -26,7 +28,7 @@ class DetailViewModel : ViewModel() {
     private val _followedUser = MutableLiveData<List<ItemsItem>>()
     val followedUser: LiveData<List<ItemsItem>> = _followedUser
 
-//    private val mFavRepository: FavRepository = FavRepository(application)
+    private val mFavRepository: FavRepository = FavRepository(application)
 
     companion object {
         private const val TAG = "DetailActivity"
@@ -110,4 +112,17 @@ class DetailViewModel : ViewModel() {
             }
         })
     }
+
+    //tambahin insert fav
+    fun addFav(fav: Fav) {
+        mFavRepository.insert(fav)
+    }
+
+    fun deleteFav(fav: Fav) {
+        mFavRepository.delete(fav)
+    }
+
+    //memanggil semua fav berdasarkan username
+    fun getFavByUser(fav: String): LiveData<Fav> = mFavRepository.getFavByUser(fav)
+
 }
