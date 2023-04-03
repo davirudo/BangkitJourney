@@ -13,7 +13,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+        app:layout_constraintTop_toBottomOf="@+id/progressBarFollow" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFollow"
@@ -29,7 +29,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ProgressBar
-        android:id="@+id/progressBar"
+        android:id="@+id/progressBarFollow"
         style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
