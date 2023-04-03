@@ -30,13 +30,11 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val getID = intent.getStringExtra(KEY)
-
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        getID?.let { detailViewModel.detailUser(it)}
+        val getID = intent.getStringExtra(KEY)
+
         detailViewModel.detailUser.observe(this) {
             setUserDetail(it)
         }
@@ -46,7 +44,6 @@ class DetailActivity : AppCompatActivity() {
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = getID.toString()
-
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter
         val tabs: TabLayout = findViewById(R.id.tabs)
@@ -54,6 +51,15 @@ class DetailActivity : AppCompatActivity() {
             tab.text = resources.getString(TAB_TITLES[position])
         }.attach()
         supportActionBar?.elevation = 0f
+
+        if(getID != null) {
+            showLoading(true)
+            detailViewModel.detailUser(getID)
+            showLoading(false)
+        }
+
+        getID?.let { detailViewModel.detailUser(it)}
+
     }
 
     private fun setUserDetail(detail: DetailResponse) {
@@ -73,8 +79,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        var getID = intent.getStringExtra(KEY)
-        showLoading(true)
+        val getID = intent.getStringExtra(KEY)
         val inflater = menuInflater
         inflater.inflate(R.menu.menu_fav, menu)
 
@@ -95,7 +100,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val Get = intent.getStringExtra(KEY)
+        val get = intent.getStringExtra(KEY)
 
         when (item.itemId) {
             R.id.favDetailBtn -> {
@@ -104,7 +109,7 @@ class DetailActivity : AppCompatActivity() {
                     avatarUrl = detailUser.avatarUrl
                 }
 
-                val favorite = Get?.let { user ->
+                val favorite = get?.let { user ->
                     Fav(
                         user,
                         avatarUrl.toString(),

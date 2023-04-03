@@ -29,6 +29,5 @@ class ViewModelFactory private constructor(private val mApplication: Application
             return FavViewModel(mApplication) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
-        return super.create(modelClass)
     }
 }

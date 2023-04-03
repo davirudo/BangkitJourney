@@ -17,16 +17,16 @@ import retrofit2.Response
 class DetailViewModel(application: Application) : ViewModel() {
 
     private val _detailUser = MutableLiveData<DetailResponse>()
-    val detailUser: LiveData<DetailResponse> = _detailUser
+    val detailUser: MutableLiveData<DetailResponse> = _detailUser
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    val isLoading: MutableLiveData<Boolean> = _isLoading
 
     private val _followerUser = MutableLiveData<List<ItemsItem>>()
-    val followerUser: LiveData<List<ItemsItem>> = _followerUser
+    val followerUser: MutableLiveData<List<ItemsItem>> = _followerUser
 
     private val _followedUser = MutableLiveData<List<ItemsItem>>()
-    val followedUser: LiveData<List<ItemsItem>> = _followedUser
+    val followedUser: MutableLiveData<List<ItemsItem>> = _followedUser
 
     private val mFavRepository: FavRepository = FavRepository(application)
 
@@ -64,50 +64,50 @@ class DetailViewModel(application: Application) : ViewModel() {
     }
 
     fun detailFollower(q : String = "") {
-        _isLoading.value = true
+//        _isLoading.value = true
         val client = ApiConfig.getApiService().getFollowers(q)
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
                 response: Response<List<ItemsItem>>
             ) {
-                _isLoading.value = false
+//                _isLoading.value = false
                 if(response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _followerUser.value = response.body()
                     }
                 } else {
-                    Log.e(TAG, "OnResponse ${response.message()}")
+                    Log.e(TAG, "OnFailure ${response.message()}")
                 }
             }
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable){
-                _isLoading.value = false
+//                _isLoading.value = false
                 Log.e(TAG, "onFailure : ${t.message}")
             }
         })
     }
 
     fun detailFollowed(q : String = "") {
-        _isLoading.value = true
+//        _isLoading.value = true
         val client = ApiConfig.getApiService().getFollowed(q)
         client.enqueue(object : Callback<List<ItemsItem>> {
             override fun onResponse(
                 call: Call<List<ItemsItem>>,
                 response: Response<List<ItemsItem>>
             ) {
-                _isLoading.value = false
+//                _isLoading.value = false
                 if(response.isSuccessful) {
                     val responseBody = response.body()
                     if (responseBody != null) {
                         _followedUser.value = response.body()
                     }
                 } else {
-                    Log.e(TAG, "OnResponse ${response.message()}")
+                    Log.e(TAG, "OnFailure ${response.message()}")
                 }
             }
             override fun onFailure(call: Call<List<ItemsItem>>, t: Throwable){
-                _isLoading.value = false
+//                _isLoading.value = false
                 Log.e(TAG, "onFailure : ${t.message}")
             }
         })
