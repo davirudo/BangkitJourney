@@ -14,18 +14,15 @@ import com.example.githubuser.model.DetailViewModel
 
 class FollowFragment : Fragment() {
 
-    lateinit var binding: FragmentFollowBinding
+    private lateinit var binding: FragmentFollowBinding
     private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         detailViewModel = ViewModelProvider(requireActivity())[DetailViewModel::class.java]
-        detailViewModel.isLoading.observe(viewLifecycleOwner, {
-            showLoading(it)
-        })
         binding = FragmentFollowBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -40,24 +37,36 @@ class FollowFragment : Fragment() {
             username = it.getString(ARG_USERNAME)
         }
         if (position == 1){
+            showLoading(true)
             username?.let { detailViewModel.detailFollower(it)}
-            detailViewModel.followerUser.observe(viewLifecycleOwner, {
-                userData(it)
-            })
+            detailViewModel.followerUser.observe(viewLifecycleOwner){
+                if (it != null) {
+                    userData(it)
+                }
+                showLoading(false)
+            }
         } else {
+            showLoading(true)
             username?.let{ detailViewModel.detailFollowed(it)}
-            detailViewModel.followedUser.observe(viewLifecycleOwner, {
-                userData(it)
-            })
+            detailViewModel.followedUser.observe(viewLifecycleOwner){
+                if (it != null) {
+                    userData(it)
+                }
+                showLoading(false)
+            }
         }
     }
 
     private fun userData(listUser: List<ItemsItem>) {
         binding.apply {
             binding.rvFollow.layoutManager = LinearLayoutManager(requireActivity())
-            val UserAdapter = UserAdapter(listUser)
-            binding.rvFollow.adapter = UserAdapter
+            val userAdapter = UserAdapter(listUser)
+            binding.rvFollow.adapter = userAdapter
         }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBarFollow.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     companion object {
@@ -65,8 +74,6 @@ class FollowFragment : Fragment() {
         const val ARG_USERNAME = "section_username"
     }
 
-    private fun showLoading(isLoading: Boolean) {
-        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
-    }
+
 
 }
