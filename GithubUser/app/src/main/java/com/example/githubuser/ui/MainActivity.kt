@@ -17,7 +17,7 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuser.ItemsItem
+import com.example.githubuser.response.ItemsItem
 import com.example.githubuser.R
 import com.example.githubuser.SettingPreferences
 import com.example.githubuser.adapter.UserAdapter

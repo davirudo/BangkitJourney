@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubuser.retrofit.ApiConfig
-import com.example.githubuser.ItemsItem
+import com.example.githubuser.response.ItemsItem
 import com.example.githubuser.database.Fav
 import com.example.githubuser.repository.FavRepository
 import com.example.githubuser.response.DetailResponse

@@ -3,8 +3,8 @@ package com.example.githubuser.model
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.githubuser.retrofit.ApiConfig
-import com.example.githubuser.ItemsItem
-import com.example.githubuser.UserResponse
+import com.example.githubuser.response.ItemsItem
+import com.example.githubuser.response.UserResponse
 import com.example.githubuser.SettingPreferences
 import kotlinx.coroutines.launch
 import retrofit2.Call

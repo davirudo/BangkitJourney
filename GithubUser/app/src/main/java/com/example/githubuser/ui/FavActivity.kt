@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubuser.ItemsItem
+import com.example.githubuser.response.ItemsItem
 import com.example.githubuser.adapter.UserAdapter
 import com.example.githubuser.databinding.ActivityFavBinding
 import com.example.githubuser.model.FavViewModel
