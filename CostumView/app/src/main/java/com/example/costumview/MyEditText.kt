@@ -2,6 +2,8 @@ package com.example.costumview
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -27,6 +29,20 @@ class MyEditText : AppCompatEditText, View.OnTouchListener {
     private fun init() {
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         setOnTouchListener(this)
+
+        addTextChangedListener(object:TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
+                //
+            }
+
+            override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
+                if (p0.toString().isNotEmpty()) showClearButton() else hideClearButton()
+            }
+
+            override fun afterTextChanged(p0: Editable) {
+                //
+            }
+        })
     }
 
     private fun showClearButton() {
