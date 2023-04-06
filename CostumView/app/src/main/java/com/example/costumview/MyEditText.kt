@@ -1,6 +1,7 @@
 package com.example.costumview
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,15 +16,21 @@ class MyEditText : AppCompatEditText, View.OnTouchListener {
     private lateinit var clearButtonImage: Drawable
 
     constructor(context: Context) : super(context) {
-
+        init()
     }
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-
+        init()
     }
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
+        init()
+    }
 
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
+        hint = "Masukkan nama"
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun init() {
