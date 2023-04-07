@@ -43,21 +43,13 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
         return rv
     }
 
-    override fun getLoadingView(): RemoteViews {
-        TODO("Not yet implemented")
-    }
+    override fun getLoadingView(): RemoteViews? = null
 
-    override fun getViewTypeCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getViewTypeCount(): Int = 1
 
-    override fun getItemId(p0: Int): Long {
-        TODO("Not yet implemented")
-    }
+    override fun getItemId(p0: Int): Long = 0
 
-    override fun hasStableIds(): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun hasStableIds(): Boolean = false
 
 
 }
