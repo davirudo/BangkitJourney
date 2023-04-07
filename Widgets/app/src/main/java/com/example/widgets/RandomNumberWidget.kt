@@ -36,6 +36,18 @@ class RandomNumberWidget : AppWidgetProvider() {
     override fun onDisabled(context: Context) {
         // Enter relevant functionality for when the last widget is disabled
     }
+
+    override fun onReceive(context: Context, intent: Intent) {
+        super.onReceive(context, intent)
+        if (intent.action == WIDGET_CLICK) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val views = RemoteViews(context.packageName, R.layout.random_number_widget)
+            val lastUpdate = "Random: " + NumberGenerator.generate(100)
+            val appWidgetId = intent.getIntExtra(WIDGET_ID_EXTRA, 0)
+            views.setTextViewText(R.id.appwidget_text, lastUpdate)
+            appWidgetManager.updateAppWidget(appWidgetId, views)
+        }
+    }
 }
 
 internal fun updateAppWidget(
@@ -61,6 +73,7 @@ internal fun updateAppWidget(
     // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.random_number_widget)
     views.setTextViewText(R.id.appwidget_text, lastUpdate)
+    views.setOnClickPendingIntent(R.id.btn_click, pendingIntent)
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
