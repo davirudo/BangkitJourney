@@ -13,7 +13,7 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
     private val mWidgetItems = ArrayList<Bitmap>()
 
     override fun onCreate() {
-        TODO("Not yet implemented")
+
     }
 
     override fun onDataSetChanged() {
@@ -24,7 +24,7 @@ internal class StackRemoteViewsFactory(private val mContext: Context) : RemoteVi
     }
 
     override fun onDestroy() {
-        TODO("Not yet implemented")
+        
     }
 
     override fun getCount(): Int = mWidgetItems.size
