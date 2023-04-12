@@ -13,11 +13,6 @@ import com.dicoding.picodiploma.myrecyclerview.R
 import com.dicoding.picodiploma.myrecyclerview.model.Hero
 import android.app.Activity
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.util.Pair
-
-/**
- * Created by sidiqpermana on 10/28/16.
- */
 
 class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adapter<ListHeroAdapter.ListViewHolder>() {
 
@@ -48,7 +43,8 @@ class ListHeroAdapter(private val listHero: ArrayList<Hero>) : RecyclerView.Adap
             itemView.setOnClickListener {
                 val intent = Intent(itemView.context, HeroActivity::class.java)
                 intent.putExtra("Hero", hero)
-                itemView.context.startActivity(intent)
+                itemView.context.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(itemView.context as Activity).toBundle())
+
             }
         }
     }
