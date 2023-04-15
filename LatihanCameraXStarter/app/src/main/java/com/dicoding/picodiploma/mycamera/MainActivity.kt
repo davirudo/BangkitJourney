@@ -18,19 +18,9 @@ import com.dicoding.picodiploma.mycamera.databinding.ActivityMainBinding
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+    private var getFile: File? = null
     private lateinit var binding: ActivityMainBinding
     private lateinit var currentPhotoPath: String
-    private  val launcherIntentCamera = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) {
-        if(it.resultCode == RESULT_OK) {
-            val myFile = File(currentPhotoPath)
-
-            myFile.let { file ->
-                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
-            }
-        }
-    }
 
     companion object {
         const val CAMERA_X_RESULT = 200
@@ -127,6 +117,20 @@ class MainActivity : AppCompatActivity() {
 
             myFile?.let {file ->
 //                rotateFile(file, isBackCamera)
+                getFile = file
+                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
+        }
+    }
+
+    private  val launcherIntentCamera = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if(it.resultCode == RESULT_OK) {
+            val myFile = File(currentPhotoPath)
+
+            myFile.let { file ->
+                getFile = file
                 binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
@@ -139,6 +143,7 @@ class MainActivity : AppCompatActivity() {
             val selectedImage = result.data?.data as Uri
             selectedImage.let { uri ->
                 val myFile = uriToFile(uri, this@MainActivity)
+                getFile = myFile
                 binding.previewImageView.setImageURI(uri)
             }
         }
