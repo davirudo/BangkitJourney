@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun uploadImage() {
         if(getFile != null) {
-            val file = getFile as File
+            val file = reduceFileImage(getFile as File)
 
             val description = "description".toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
@@ -114,6 +114,10 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this@MainActivity, "Belum ada gambar yang dipilih", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun reduceFileImage(file: File):File {
+        return file
     }
 
     private fun startGallery() {
