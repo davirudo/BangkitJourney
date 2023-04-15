@@ -2,6 +2,7 @@ package com.dicoding.picodiploma.mycamera
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.media.Image
 import android.os.Build
 import android.os.Bundle
@@ -91,6 +92,10 @@ class MainActivity : AppCompatActivity() {
                 it.data?.getSerializableExtra("picture")
             } as? File
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
+
+            myFile?.let {file ->
+                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
         }
     }
 }
