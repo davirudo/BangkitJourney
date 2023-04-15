@@ -94,6 +94,7 @@ class MainActivity : AppCompatActivity() {
             val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
 
             myFile?.let {file ->
+//                rotateFile(file, isBackCamera)
                 binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
             }
         }
