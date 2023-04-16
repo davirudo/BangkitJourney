@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/edEmail"
+        android:id="@+id/ed_login_email"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
-        android:id="@+id/edPassword"
+        android:id="@+id/ed_login_password"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -42,7 +42,7 @@
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_email" />
 
     <Button
         android:id="@+id/login"
@@ -56,7 +56,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edPassword"
+        app:layout_constraintTop_toBottomOf="@+id/ed_login_password"
         app:layout_constraintVertical_bias="0.2" />
 
     <ProgressBar
