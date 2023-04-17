@@ -22,7 +22,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityLoginBinding
-    private val api by lazy { ApiConfig().getApiService() }
+    private val api by lazy { ApiConfig.getApiService() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
