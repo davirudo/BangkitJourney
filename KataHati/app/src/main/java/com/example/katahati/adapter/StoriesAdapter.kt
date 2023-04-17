@@ -1,5 +1,6 @@
 package com.example.katahati.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -24,15 +25,17 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) : RecyclerVie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoriesAdapter.ViewHoolder {
-        TODO("Not yet implemented")
+        val binding = ItemStoriesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHoolder(binding)
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return listStories.size
     }
 
     override fun onBindViewHolder(holder: StoriesAdapter.ViewHoolder, position: Int) {
-        TODO("Not yet implemented")
+        val item = listStories[position]
+        holder.bind(item)
     }
 
 }
