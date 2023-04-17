@@ -2,6 +2,8 @@ package com.example.katahati.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.example.katahati.R
 import com.example.katahati.databinding.ActivityLoginBinding
 import com.example.katahati.databinding.ActivityMainBinding
@@ -16,7 +18,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val bottomNavigationView = binding.bottomNav
-        val navController = binding.navFragment
+        val navController = findNavController(R.id.nav_fragment)
+        bottomNavigationView.setupWithNavController(navController)
 
 
     }
