@@ -1,7 +1,27 @@
 package com.example.katahati.response
 
+import com.google.gson.annotations.SerializedName
+
 data class LoginResponse(
-    val error: Boolean,
-    val loginResult: LoginResult,
-    val message: String
+
+	@field:SerializedName("loginResult")
+	val loginResult: LoginResult,
+
+	@field:SerializedName("error")
+	val error: Boolean,
+
+	@field:SerializedName("message")
+	val message: String
+)
+
+data class LoginResult(
+
+	@field:SerializedName("name")
+	val name: String,
+
+	@field:SerializedName("userId")
+	val userId: String,
+
+	@field:SerializedName("token")
+	val token: String
 )
