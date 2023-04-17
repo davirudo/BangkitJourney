@@ -1,16 +1,17 @@
 package com.example.katahati.model
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.katahati.response.ListStoryItem
 
-class storiesViewModel() : ViewModel() {
+class StoriesViewModel : ViewModel() {
 
     private val _listStory = MutableLiveData<List<ListStoryItem>>()
-    val listStory: MutableLiveData<List<ListStoryItem>> = _listStory
+    val listStory: LiveData<List<ListStoryItem>> = _listStory
 
     private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: MutableLiveData<Boolean> = _isLoading
+    val isLoading: LiveData<Boolean> = _isLoading
 
     companion object {
         private const val TAG = "StoriesFragment"
@@ -23,5 +24,6 @@ class storiesViewModel() : ViewModel() {
     fun setUserData(data: List<ListStoryItem>) {
         _isLoading.value = true
         _listStory.value = data
+        _isLoading.value = false
     }
 }
