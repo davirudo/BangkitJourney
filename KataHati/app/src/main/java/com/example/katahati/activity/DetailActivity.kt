@@ -28,25 +28,30 @@ class DetailActivity : AppCompatActivity() {
 
         sessionManager = SessionManager(this)
         val token = LoginActivity.sessionManager.getString("TOKEN")
-        detailViewModel.getDetailUser(token.toString())
-
         val getID = intent.getStringExtra(KEY)
+        if (getID != null) {
+            detailViewModel.getDetailUser(token.toString(), getID)
+        }
+
+//        detailViewModel.getDetailUser(token.toString(), intent.getStringExtra(StoryFragment.KEY).toString())
+//
+//        val getID = intent.getStringExtra(KEY)
 
         detailViewModel.detailUser.observe(this) {
-            setUserDetail(it)
+            setUserDetail(it.story)
         }
 
         detailViewModel.isLoading.observe(this) {
             showLoading(it)
         }
 
-        if(getID != null) {
-            showLoading(true)
-            detailViewModel.getDetailUser(getID)
-            showLoading(false)
-        }
-
-        getID?.let { detailViewModel.getDetailUser(it)}
+//        if(getID != null) {
+//            showLoading(true)
+//            detailViewModel.getDetailUser(getID)
+//            showLoading(false)
+//        }
+//
+//        getID?.let { detailViewModel.getDetailUser(it)}
     }
 
     private fun setUserDetail(detail: Story) {
