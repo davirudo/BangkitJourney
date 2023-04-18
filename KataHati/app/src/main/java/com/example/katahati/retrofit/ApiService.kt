@@ -22,8 +22,9 @@ interface ApiService {
         @Query("size") size: Int? = 15,
     ): Call<StoriesResponse>
 
-    @GET("stories/:id")
+    @GET("stories/{id}")
     fun getDetail(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Path("id") id: String
     ): Call<DetailResponse>
 }
