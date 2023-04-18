@@ -1,9 +1,11 @@
 package com.example.katahati.adapter
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.katahati.activity.DetailActivity
 import com.example.katahati.databinding.ItemStoriesBinding
 import com.example.katahati.response.ListStoryItem
 
@@ -31,7 +33,11 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) : RecyclerVie
                 binding.tvStories.text = item.description
             }
 
-            //abis ini set on buat detail
+            binding.root.setOnClickListener {
+                val intent = Intent(itemView.context, DetailActivity::class.java)
+                intent.putExtra(DetailActivity.KEY, item.id)
+                itemView.context.startActivity(intent)
+            }
         }
 
     }
