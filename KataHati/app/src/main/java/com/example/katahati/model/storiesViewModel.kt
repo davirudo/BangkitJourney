@@ -1,11 +1,18 @@
 package com.example.katahati.model
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.katahati.response.ListStoryItem
+import com.example.katahati.response.StoriesResponse
+import com.example.katahati.retrofit.ApiConfig
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class StoriesViewModel : ViewModel() {
+
 
     private val _listStory = MutableLiveData<List<ListStoryItem>>()
     val listStory: LiveData<List<ListStoryItem>> = _listStory
@@ -17,13 +24,29 @@ class StoriesViewModel : ViewModel() {
         private const val TAG = "StoriesFragment"
     }
 
-    init {
-        setUserData(listOf())
-    }
-
-    fun setUserData(data: List<ListStoryItem>) {
+    fun getAllStories(token : String) {
         _isLoading.value = true
-        _listStory.value = data
-        _isLoading.value = false
+
+        val client = ApiConfig.getApiService().getAllStories(token)
+        client.enqueue(object : Callback<StoriesResponse> {
+            override fun onResponse(
+                call: Call<StoriesResponse>,
+                response: Response<StoriesResponse>
+            ) {
+                _isLoading.value = false
+                if(response.isSuccessful) {
+                    val responseBody = response.body()
+                    if (responseBody != null) {
+                        _listStory.value = response.body()?.listStory
+                    }
+                } else {
+                    Log.e(TAG, "OnResponse ${response.message()}")
+                }
+            }
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable){
+                _isLoading.value = false
+                Log.e(TAG, "onFailure : ${t.message.toString()}")
+            }
+            })
     }
 }
