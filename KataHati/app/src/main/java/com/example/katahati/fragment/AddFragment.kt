@@ -20,6 +20,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.katahati.R
 import com.example.katahati.activity.LoginActivity
 //import com.example.katahati.activity.CameraActivity
@@ -28,6 +29,8 @@ import com.example.katahati.databinding.FragmentStoryBinding
 import com.example.katahati.response.AddResponse
 import com.example.katahati.retrofit.ApiConfig
 import com.example.katahati.utils.SessionManager
+import com.example.katahati.utils.createCustomTempFile
+import com.example.katahati.utils.reduceFileImage
 import com.example.katahati.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
@@ -123,7 +126,18 @@ class AddFragment : Fragment() {
     //Ini Camera biasa
     private fun startTakePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        launcherIntentCamera.launch(intent)
+        intent.resolveActivity(requireContext().packageManager)
+
+        createCustomTempFile(requireActivity().application).also {
+            val photoURI: Uri = FileProvider.getUriForFile(
+                requireContext(),
+                "com.example.katahati",
+                it
+            )
+            currentPhotoPath = it.absolutePath
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
+            launcherIntentCamera.launch(intent)
+        }
     }
 
     private fun startGallery() {
@@ -174,6 +188,9 @@ class AddFragment : Fragment() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
+//            val imageBitmap = it.data?.extras?.get("data") as Bitmap
+//            binding.previewImageView.setImageBitmap(imageBitmap)
+
             val myFile = File(currentPhotoPath)
             myFile.let { file ->
                 getFile = file
@@ -196,7 +213,7 @@ class AddFragment : Fragment() {
         }
     }
 
-    private fun reduceFileImage(file: File): File {
-        return file
-    }
+//    private fun reduceFileImage(file: File): File {
+//        return file
+//    }
 }
