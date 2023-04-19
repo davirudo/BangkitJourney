@@ -8,14 +8,13 @@
     tools:context=".fragment.AddFragment">
 
     <TextView
-        android:id="@+id/tvUsername"
-        android:layout_width="match_parent"
+        android:id="@+id/tvPosting"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:textSize="15sp"
+        android:text="POSTING"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -28,7 +27,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUsername" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPosting" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -58,8 +57,8 @@
             android:layout_marginVertical="8dp"
             android:layout_marginEnd="20dp"
             android:scaleType="centerCrop"
-            android:drawableLeft="@drawable/ic_file"
-            android:text="@string/file"
+            android:drawableLeft="@drawable/ic_camera"
+            android:text="@string/camera"
             android:textColor="@color/white"
             android:src="@drawable/ic_camera"
             android:backgroundTint="@color/black"
@@ -72,7 +71,7 @@
             android:layout_marginVertical="8dp"
             android:scaleType="centerCrop"
             android:drawableLeft="@drawable/ic_file"
-            android:text="@string/camera"
+            android:text="@string/file"
             android:textColor="@color/white"
             android:src="@drawable/ic_camera"
             android:backgroundTint="@color/black"
@@ -89,7 +88,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:srcCompat="@drawable/ic_file" />
+        app:srcCompat="@drawable/preview" />
 
 
     <ProgressBar
@@ -103,5 +102,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="visible" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
