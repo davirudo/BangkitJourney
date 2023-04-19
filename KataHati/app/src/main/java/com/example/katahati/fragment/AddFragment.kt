@@ -2,6 +2,7 @@ package com.example.katahati.fragment
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -120,11 +121,11 @@ class AddFragment : Fragment() {
     }
 
     private fun startGallery() {
-        Toast.makeText(
-            requireContext(),
-            "ini galeri.",
-            Toast.LENGTH_SHORT
-        ).show()
+        val intent = Intent()
+        intent.action = ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Pilih Gambar")
+        launcherIntentGallery.launch(chooser)
     }
 
     private fun uploadStory() {
