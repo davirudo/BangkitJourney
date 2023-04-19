@@ -21,14 +21,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.example.katahati.R
+import com.example.katahati.activity.LoginActivity
 //import com.example.katahati.activity.CameraActivity
 import com.example.katahati.databinding.FragmentAddBinding
 import com.example.katahati.databinding.FragmentStoryBinding
+import com.example.katahati.response.AddResponse
+import com.example.katahati.retrofit.ApiConfig
+import com.example.katahati.utils.SessionManager
 import com.example.katahati.utils.uriToFile
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.io.File
 
 class AddFragment : Fragment() {
@@ -136,6 +143,8 @@ class AddFragment : Fragment() {
         if (getFile != null) {
             val file = getFile as File
 
+            StoryFragment.sessionManager = SessionManager(requireContext())
+            val token = LoginActivity.sessionManager.getString("TOKEN")
             val description = "Ini adalah deksripsi gambar".toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -143,7 +152,23 @@ class AddFragment : Fragment() {
                 file.name,
                 requestImageFile
             )
-
+            val apiService = ApiConfig.getApiService()
+            val uploadImageRequest = apiService.addNewStory(token.toString(), imageMultipart, description)
+            uploadImageRequest.enqueue(object : Callback<AddResponse> {
+                override fun onResponse(call: Call<AddResponse>, response: Response<AddResponse>) {
+                    if (response.isSuccessful) {
+                        val responseBody = response.body()
+                        if (responseBody != null && !responseBody.error) {
+                            Toast.makeText(requireContext(), responseBody.message, Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
+                    }
+                }
+                override fun onFailure(call: Call<AddResponse>, t: Throwable) {
+                    Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                }
+            })
         } else {
             Toast.makeText(requireContext(), "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
         }
