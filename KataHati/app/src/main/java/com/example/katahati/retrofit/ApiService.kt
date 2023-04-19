@@ -1,9 +1,8 @@
 package com.example.katahati.retrofit
 
-import com.example.katahati.response.DetailResponse
-import com.example.katahati.response.LoginResponse
-import com.example.katahati.response.StoriesResponse
-import com.example.katahati.response.Story
+import com.example.katahati.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -27,4 +26,12 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): Call<DetailResponse>
+
+    @Multipart
+    @POST("stories")
+    fun addNewStory(
+        @Header("Authorization") token: String,
+        @Part photo: MultipartBody.Part,
+        @Part("description") description: RequestBody,
+    ): Call<AddResponse>
 }
