@@ -25,6 +25,10 @@ import com.example.katahati.R
 import com.example.katahati.databinding.FragmentAddBinding
 import com.example.katahati.databinding.FragmentStoryBinding
 import com.example.katahati.utils.uriToFile
+import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 class AddFragment : Fragment() {
@@ -103,7 +107,7 @@ class AddFragment : Fragment() {
 
         binding.ivCamera.setOnClickListener { startTakePhoto() }
         binding.ivFile.setOnClickListener { startGallery() }
-//        binding.iv.setOnClickListener { uploadImage() }
+        binding.tvPosting.setOnClickListener { uploadStory() }
 
 
     }
@@ -129,19 +133,32 @@ class AddFragment : Fragment() {
     }
 
     private fun uploadStory() {
-        Toast.makeText(
-            requireContext(),
-            "ini upload.",
-            Toast.LENGTH_SHORT
-        ).show() }
+        if (getFile != null) {
+            val file = getFile as File
+
+            val description = "Ini adalah deksripsi gambar".toRequestBody("text/plain".toMediaType())
+            val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+            val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
+                "photo",
+                file.name,
+                requestImageFile
+            )
+
+        } else {
+            Toast.makeText(requireContext(), "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     //ini Camera biasa
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-            val imageBitmap = it.data?.extras?.get("data") as Bitmap
-            binding.previewImageView.setImageBitmap(imageBitmap)
+            val myFile = File(currentPhotoPath)
+            myFile.let { file ->
+                getFile = file
+                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
+            }
         }
     }
 
@@ -158,27 +175,4 @@ class AddFragment : Fragment() {
             }
         }
     }
-
-    //ini Camera X
-//    private val launcherIntentCameraX = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()
-//    ) {
-//        if (it.resultCode == CAMERA_X_RESULT) {
-//            val myFile = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//                it.data?.getSerializableExtra("picture", File::class.java)
-//            } else {
-//                @Suppress("DEPRECATION")
-//                it.data?.getSerializableExtra("picture")
-//            } as? File
-////            val isBackCamera = it.data?.getBooleanExtra("isBackCamera", true) as Boolean
-//
-//            myFile?.let { file ->
-//                getFile = file
-//                binding.previewImageView.setImageBitmap(BitmapFactory.decodeFile(file.path))
-//            }
-//        }
-//    }
-
-
-
 }
