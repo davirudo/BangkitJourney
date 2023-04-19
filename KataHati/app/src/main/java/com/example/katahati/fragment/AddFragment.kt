@@ -119,11 +119,6 @@ class AddFragment : Fragment() {
 
     }
 
-    //Ini Camera X
-//    private fun startCameraX() {
-//        val intent = Intent(requireContext(), CameraActivity::class.java)
-//        launcherIntentCameraX.launch(intent)
-//    }
 
     //Ini Camera biasa
     private fun startTakePhoto() {
@@ -141,7 +136,7 @@ class AddFragment : Fragment() {
 
     private fun uploadStory() {
         if (getFile != null) {
-            val file = getFile as File
+            val file = reduceFileImage(getFile as File)
 
             StoryFragment.sessionManager = SessionManager(requireContext())
             val token = LoginActivity.sessionManager.getString("TOKEN")
@@ -199,5 +194,9 @@ class AddFragment : Fragment() {
                 binding.previewImageView.setImageURI(uri)
             }
         }
+    }
+
+    private fun reduceFileImage(file: File): File {
+        return file
     }
 }
