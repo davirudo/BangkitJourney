@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.navigation.fragment.findNavController
 import com.example.katahati.R
 import com.example.katahati.activity.LoginActivity
 //import com.example.katahati.activity.CameraActivity
@@ -154,7 +155,7 @@ class AddFragment : Fragment() {
 
             StoryFragment.sessionManager = SessionManager(requireContext())
             val token = LoginActivity.sessionManager.getString("TOKEN")
-            val description = "Ini adalah deksripsi gambar".toRequestBody("text/plain".toMediaType())
+            val description = binding.etTitle.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
@@ -188,9 +189,6 @@ class AddFragment : Fragment() {
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK) {
-//            val imageBitmap = it.data?.extras?.get("data") as Bitmap
-//            binding.previewImageView.setImageBitmap(imageBitmap)
-
             val myFile = File(currentPhotoPath)
             myFile.let { file ->
                 getFile = file
