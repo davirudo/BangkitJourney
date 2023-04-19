@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,6 +23,7 @@ import com.example.katahati.R
 //import com.example.katahati.activity.CameraActivity
 import com.example.katahati.databinding.FragmentAddBinding
 import com.example.katahati.databinding.FragmentStoryBinding
+import com.example.katahati.utils.uriToFile
 import java.io.File
 
 class AddFragment : Fragment() {
@@ -139,6 +141,20 @@ class AddFragment : Fragment() {
         if (it.resultCode == RESULT_OK) {
             val imageBitmap = it.data?.extras?.get("data") as Bitmap
             binding.previewImageView.setImageBitmap(imageBitmap)
+        }
+    }
+
+    //ini Gallery
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg = result.data?.data as Uri
+            selectedImg.let { uri ->
+                val myFile = uriToFile(uri, requireContext())
+                getFile = myFile
+                binding.previewImageView.setImageURI(uri)
+            }
         }
     }
 
