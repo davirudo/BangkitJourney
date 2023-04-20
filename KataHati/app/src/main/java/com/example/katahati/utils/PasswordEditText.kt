@@ -107,11 +107,11 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
     private fun togglePasswordVisibility() {
         if (isPasswordVisible) {
             transformationMethod = PasswordTransformationMethod.getInstance()
-            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye_show) as Drawable
+            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye) as Drawable
             isPasswordVisible = false
         } else {
             transformationMethod = HideReturnsTransformationMethod.getInstance()
-            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye) as Drawable
+            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye_show) as Drawable
             isPasswordVisible = true
         }
         setButtonDrawable(endOfTheText = eyeButtonImage)
