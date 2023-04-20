@@ -73,5 +73,10 @@ class LoginActivity : AppCompatActivity() {
 
                 })
         }
+
+        binding.tvSignUp.setOnClickListener {
+            val moveIntent = Intent(this@LoginActivity, RegisterActivity::class.java)
+            startActivity(moveIntent)
+        }
     }
 }
