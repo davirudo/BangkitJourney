@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.katahati.R
-import com.example.katahati.databinding.ActivityLoginBinding
 import com.example.katahati.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

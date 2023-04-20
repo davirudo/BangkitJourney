@@ -1,11 +1,9 @@
 package com.example.katahati.model
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.katahati.response.DetailResponse
-import com.example.katahati.response.Story
 import com.example.katahati.retrofit.ApiConfig
 import retrofit2.Call
 import retrofit2.Callback

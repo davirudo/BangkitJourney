@@ -3,7 +3,7 @@ package com.example.katahati.utils
 import android.content.Context
 import android.content.SharedPreferences
 
-class SessionManager(private var _context: Context) {
+class SessionManager(_context: Context) {
     private var pref: SharedPreferences
     private var editor: SharedPreferences.Editor
     private var PRIVATE_MODE = 0
@@ -37,7 +37,6 @@ class SessionManager(private var _context: Context) {
     }
 
     companion object {
-        private val PREF = "pref"
-        val SESSION_TOKEN = "token"
+        private const val PREF = "pref"
     }
 }

@@ -4,29 +4,21 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.content.Intent.ACTION_GET_CONTENT
 import android.content.pm.PackageManager
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.provider.MediaStore.Audio.Media
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.navigation.fragment.findNavController
-import com.example.katahati.R
 import com.example.katahati.activity.LoginActivity
-//import com.example.katahati.activity.CameraActivity
 import com.example.katahati.databinding.FragmentAddBinding
-import com.example.katahati.databinding.FragmentStoryBinding
 import com.example.katahati.response.AddResponse
 import com.example.katahati.retrofit.ApiConfig
 import com.example.katahati.utils.SessionManager
@@ -50,12 +42,11 @@ class AddFragment : Fragment() {
     private var getFile: File? = null
 
     companion object {
-        const val CAMERA_X_RESULT = 200
-
         private val REQUIRED_PERMISSIONS = arrayOf("android.permission.CAMERA")
         private const val REQUEST_CODE_PERMISSIONS = 10
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -78,8 +69,6 @@ class AddFragment : Fragment() {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
-    var btnVisible = false
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -96,16 +85,9 @@ class AddFragment : Fragment() {
         val ivFile = binding.ivFile
 
         ivPhoto.setOnClickListener {
-            if (!btnVisible) {
-                ivCamera.visibility = View.VISIBLE
-                ivFile.visibility = View.VISIBLE
-                ivPhoto.visibility = View.GONE
-                btnVisible = true
-            } else {
-//                ivCamera.visibility = View.GONE
-//                ivFile.visibility = View.GONE
-//                btnVisible = false
-            }
+            ivCamera.visibility = View.VISIBLE
+            ivFile.visibility = View.VISIBLE
+            ivPhoto.visibility = View.GONE
         }
 
         if (!allPermissionsGranted()) {
@@ -119,12 +101,8 @@ class AddFragment : Fragment() {
         binding.ivCamera.setOnClickListener { startTakePhoto() }
         binding.ivFile.setOnClickListener { startGallery() }
         binding.tvPosting.setOnClickListener { uploadStory() }
-
-
     }
 
-
-    //Ini Camera biasa
     private fun startTakePhoto() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
         intent.resolveActivity(requireContext().packageManager)
@@ -180,11 +158,10 @@ class AddFragment : Fragment() {
                 }
             })
         } else {
-            Toast.makeText(requireContext(), "Silakan masukkan berkas gambar terlebih dahulu.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Masukin foto atau gambar dulu ya.", Toast.LENGTH_SHORT).show()
         }
     }
 
-    //ini Camera biasa
     private val launcherIntentCamera = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
@@ -197,7 +174,6 @@ class AddFragment : Fragment() {
         }
     }
 
-    //ini Gallery
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -210,8 +186,4 @@ class AddFragment : Fragment() {
             }
         }
     }
-
-//    private fun reduceFileImage(file: File): File {
-//        return file
-//    }
 }

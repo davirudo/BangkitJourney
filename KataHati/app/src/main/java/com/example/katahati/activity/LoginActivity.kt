@@ -1,6 +1,5 @@
 package com.example.katahati.activity
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,7 +17,6 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         lateinit var sessionManager: SessionManager
-        private lateinit var context: Context
     }
 
     private lateinit var binding: ActivityLoginBinding
@@ -42,7 +40,7 @@ class LoginActivity : AppCompatActivity() {
         val edPassword = binding.edLoginPassword
 
         binding.btnLogin.setOnClickListener {
-            Toast.makeText(this, "Login proceed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sign In.....", Toast.LENGTH_SHORT).show()
 
             api.login(edEmail.text.toString(), edPassword.text.toString())
                 .enqueue(object : Callback<LoginResponse> {
@@ -50,7 +48,7 @@ class LoginActivity : AppCompatActivity() {
                         call: Call<LoginResponse>,
                         response: Response<LoginResponse>
                     ) {
-                        Log.e("LoginResponse", response.toString())
+                        Log.e("SignInResponse", response.toString())
                         val correct = response.isSuccessful
 
                         if (correct) {
@@ -69,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
-                        Log.e("LoginError", t.toString())
+                        Log.e("SignInError", t.toString())
                         Toast.makeText(applicationContext, "Something's wrong :(", Toast.LENGTH_SHORT).show()
                     }
 
