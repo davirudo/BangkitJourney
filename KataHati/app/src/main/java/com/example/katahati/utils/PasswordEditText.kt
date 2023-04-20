@@ -5,6 +5,8 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -14,7 +16,8 @@ import com.example.katahati.R
 
 class PasswordEditText : AppCompatEditText, View.OnTouchListener {
 
-    private lateinit var clearButtonImage: Drawable
+    private lateinit var eyeButtonImage: Drawable
+    private var isPasswordVisible: Boolean = false
 
     constructor(context: Context) : super(context) {
         init()
@@ -35,16 +38,16 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
     }
 
     private fun init() {
-        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
+        eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye) as Drawable
         setOnTouchListener(this)
 
-        addTextChangedListener(object:TextWatcher {
+        addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
                 //
             }
 
             override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().isNotEmpty()) showClearButton() else hideClearButton()
+                if (p0.toString().isNotEmpty()) showEyeButton() else hideEyeButton()
             }
 
             override fun afterTextChanged(p0: Editable) {
@@ -53,12 +56,12 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
         })
     }
 
-    private fun showClearButton() {
-    setButtonDrawable(endOfTheText = clearButtonImage)
+    private fun showEyeButton() {
+        setButtonDrawable(endOfTheText = eyeButtonImage)
     }
 
-    private fun hideClearButton() {
-    setButtonDrawable()
+    private fun hideEyeButton() {
+        setButtonDrawable()
     }
 
     private fun setButtonDrawable(
@@ -70,37 +73,28 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
         setCompoundDrawablesRelativeWithIntrinsicBounds(startOfTheText, topOfTheText, endOfTheText, bottomOfTheText)
     }
 
-    override fun onTouch(v : View?, event: MotionEvent): Boolean {
-        if(compoundDrawables[2] != null) {
-            val clearButtonStart: Float
-            val clearButtonEnd: Float
+    override fun onTouch(v: View?, event: MotionEvent): Boolean {
+        if (compoundDrawables[2] != null) {
+            val eyeButtonStart: Float
+            val eyeButtonEnd: Float
 
-            var isClearButtonClicked = false
+            var isEyeButtonClicked = false
             if (layoutDirection == View.LAYOUT_DIRECTION_RTL) {
-                clearButtonEnd = (clearButtonImage.intrinsicWidth + paddingStart).toFloat()
+                eyeButtonEnd = (eyeButtonImage.intrinsicWidth + paddingStart).toFloat()
                 when {
-                    event.x < clearButtonEnd -> isClearButtonClicked = true
+                    event.x < eyeButtonEnd -> isEyeButtonClicked = true
                 }
             } else {
-                clearButtonStart = (width - paddingEnd - clearButtonImage.intrinsicWidth).toFloat()
+                eyeButtonStart = (width - paddingEnd - eyeButtonImage.intrinsicWidth).toFloat()
                 when {
-                    event.x > clearButtonStart -> isClearButtonClicked = true
+                    event.x > eyeButtonStart -> isEyeButtonClicked = true
                 }
             }
 
-            if (isClearButtonClicked) {
-                when(event.action) {
+            if (isEyeButtonClicked) {
+                when (event.action) {
                     MotionEvent.ACTION_DOWN -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
-                        showClearButton()
-                        return true
-                    }
-                    MotionEvent.ACTION_UP -> {
-                        clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
-                        when {
-                            text != null -> text?.clear()
-                        }
-                        hideClearButton()
+                        togglePasswordVisibility()
                         return true
                     }
                     else -> return false
@@ -109,5 +103,17 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
         }
         return false
     }
-    
+
+    private fun togglePasswordVisibility() {
+        if (isPasswordVisible) {
+            transformationMethod = PasswordTransformationMethod.getInstance()
+            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye_show) as Drawable
+            isPasswordVisible = false
+        } else {
+            transformationMethod = HideReturnsTransformationMethod.getInstance()
+            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye) as Drawable
+            isPasswordVisible = true
+        }
+        setButtonDrawable(endOfTheText = eyeButtonImage)
+    }
 }
