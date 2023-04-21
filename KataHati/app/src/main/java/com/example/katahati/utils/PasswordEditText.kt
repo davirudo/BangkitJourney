@@ -42,18 +42,14 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
         setOnTouchListener(this)
 
         addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
-                //
-            }
+            override fun beforeTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString().isNotEmpty()) showEyeButton() else hideEyeButton()
                 error = if (p0.length < 8) "8 Characters Minimum" else null
             }
 
-            override fun afterTextChanged(p0: Editable) {
-                //
-            }
+            override fun afterTextChanged(p0: Editable) {}
         })
     }
 
@@ -112,7 +108,7 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
             isPasswordVisible = false
         } else {
             transformationMethod = HideReturnsTransformationMethod.getInstance()
-            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye_show) as Drawable
+            eyeButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_eye) as Drawable
             isPasswordVisible = true
         }
         setButtonDrawable(endOfTheText = eyeButtonImage)
