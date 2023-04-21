@@ -19,5 +19,9 @@
         android:id="@+id/addFragment"
         android:name="com.example.katahati.fragment.AddFragment"
         android:label="fragment_add"
-        tools:layout="@layout/fragment_add" />
+        tools:layout="@layout/fragment_add" >
+        <action
+            android:id="@+id/action_addFragment_to_storyFragment"
+            app:destination="@id/storyFragment" />
+    </fragment>
 </navigation>
