@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.example.katahati.utils.EmailEditText
         android:id="@+id/ed_login_email"
         android:layout_width="0dp"
         android:layout_height="50dp"
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-    <EditText
+    <com.example.katahati.utils.PasswordEditText
         android:id="@+id/ed_login_password"
         android:layout_width="0dp"
         android:layout_height="50dp"
