@@ -14,6 +14,14 @@ interface ApiService {
         @Field("password") password: String
     ): Call<LoginResponse>
 
+    @FormUrlEncoded
+    @POST("register")
+    fun register(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String
+    ): Call<RegisterResponse>
+
     @GET("stories")
     fun getAllStories(
         @Header("Authorization") token: String,
@@ -33,11 +41,4 @@ interface ApiService {
         @Part photo: MultipartBody.Part,
         @Part("description") description: RequestBody,
     ): Call<AddResponse>
-
-    @POST("register")
-    fun register(
-        @Field("name") name: String,
-        @Field("email") email: String,
-        @Field("password") password: String
-    ): Call<RegisterResponse>
 }
