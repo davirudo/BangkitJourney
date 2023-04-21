@@ -18,15 +18,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
+    <com.example.katahati.utils.EmailEditText
         android:id="@+id/ed_register_email"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
         android:gravity="start"
         android:layout_marginTop="16dp"
-        android:hint="@string/email"
-        android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ed_register_name" />
