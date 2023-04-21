@@ -40,11 +40,11 @@ class DetailActivity : AppCompatActivity() {
 
     private fun setUserDetail(detail: Story) {
         binding.apply {
-            binding.tvUserDetail.text = detail.name
+            binding.tvDetailName.text = detail.name
             Glide.with(binding.root)
                 .load(detail.photoUrl)
-                .into(ivStoriesDetail)
-            binding.tvStoriesDetail.text = detail.description
+                .into(ivDetailPhoto)
+            binding.tvDetailDescription.text = detail.description
         }
     }
 

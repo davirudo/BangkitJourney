@@ -26,11 +26,11 @@ class StoriesAdapter(private val listStories: List<ListStoryItem>) : RecyclerVie
     class ViewHolder(private val binding: ItemStoriesBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ListStoryItem) {
             binding.apply {
-                binding.tvUser.text = item.name
+                binding.tvItemName.text = item.name
                 Glide.with(binding.root)
                     .load(item.photoUrl)
-                    .into(ivStories)
-                binding.tvStories.text = item.description
+                    .into(ivItemPhoto)
+                binding.tvItemDesc.text = item.description
             }
 
             binding.root.setOnClickListener {

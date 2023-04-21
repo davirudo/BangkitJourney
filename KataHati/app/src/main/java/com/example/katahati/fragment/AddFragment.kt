@@ -102,7 +102,7 @@ class AddFragment : Fragment() {
 
         binding.ivCamera.setOnClickListener { startTakePhoto() }
         binding.ivFile.setOnClickListener { startGallery() }
-        binding.tvPosting.setOnClickListener { uploadStory() }
+        binding.buttonAdd.setOnClickListener { uploadStory() }
     }
 
     private fun startTakePhoto() {
@@ -136,7 +136,7 @@ class AddFragment : Fragment() {
 
             StoryFragment.sessionManager = SessionManager(requireContext())
             val token = LoginActivity.sessionManager.getString("TOKEN")
-            val description = binding.etTitle.text.toString().toRequestBody("text/plain".toMediaType())
+            val description = binding.edAddDescription.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",

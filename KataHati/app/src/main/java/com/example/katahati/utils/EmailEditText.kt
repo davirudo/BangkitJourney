@@ -36,7 +36,7 @@ class EmailEditText : AppCompatEditText, View.OnTouchListener {
 
             override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (!android.util.Patterns.EMAIL_ADDRESS.matcher(p0).matches()) {
-                    error = "email address"
+                    error = "...@..."
                 } else {
                     error = null
                 }
