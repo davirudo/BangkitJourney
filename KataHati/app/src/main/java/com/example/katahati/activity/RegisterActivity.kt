@@ -21,18 +21,16 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val edname = binding.edRegisterName
-        val edemail = binding.edRegisterEmail
-        val edpassword = binding.edRegisterPassword
+
 
         binding.btnSignUp.setOnClickListener {
             Toast.makeText(this, "Sign Up.....", Toast.LENGTH_SHORT).show()
 
-            api.register(
-                edname.text.toString(),
-                edemail.text.toString(),
-                edpassword.text.toString()
-            )
+            val edname = binding.edRegisterName.text.toString()
+            val edemail = binding.edRegisterEmail.text.toString()
+            val edpassword = binding.edRegisterPassword.text.toString()
+
+            api.register(edname, edemail, edpassword)
                 .enqueue(object : Callback<RegisterResponse> {
                     override fun onResponse(
                         call: Call<RegisterResponse>,
