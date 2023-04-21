@@ -17,6 +17,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.navigation.fragment.findNavController
+import com.example.katahati.R
 import com.example.katahati.activity.LoginActivity
 import com.example.katahati.databinding.FragmentAddBinding
 import com.example.katahati.response.AddResponse
@@ -128,6 +130,7 @@ class AddFragment : Fragment() {
     }
 
     private fun uploadStory() {
+        Toast.makeText(requireContext(), "Posting.....", Toast.LENGTH_SHORT).show()
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
 
@@ -148,6 +151,7 @@ class AddFragment : Fragment() {
                         val responseBody = response.body()
                         if (responseBody != null && !responseBody.error) {
                             Toast.makeText(requireContext(), responseBody.message, Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(AddFragmentDirections.actionAddFragmentToStoryFragment())
                         }
                     } else {
                         Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
