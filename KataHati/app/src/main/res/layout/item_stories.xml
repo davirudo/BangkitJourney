@@ -17,28 +17,29 @@
         android:layout_height="wrap_content"
         android:padding="8dp">
 
+        <ImageView
+            android:id="@+id/iv_item_photo"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
+            android:layout_marginHorizontal="8dp"
+            card_view:layout_constraintEnd_toEndOf="parent"
+            card_view:layout_constraintStart_toStartOf="parent"
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/avatars"
+            android:transitionName="photo"/>
+
         <TextView
             android:id="@+id/tv_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="@string/hello_blank_fragment"
             android:textSize="15sp"
             android:textStyle="bold"
-            android:layout_margin="8dp"
-            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/iv_item_photo"
-            android:layout_width="330dp"
-            android:layout_height="250dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
-            tools:src="@tools:sample/avatars" />
+            card_view:layout_constraintTop_toBottomOf="@+id/iv_item_photo"
+            android:transitionName="name"/>
 
         <TextView
             android:id="@+id/tv_item_desc"
@@ -46,13 +47,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:textSize="18sp"
-            android:maxLines="1"
+            android:layout_marginEnd="8dp"
             android:ellipsize="end"
+            android:maxLines="1"
+            android:textSize="18sp"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toStartOf="parent"
-            card_view:layout_constraintTop_toBottomOf="@+id/iv_item_photo"
-            tools:text="@string/hello_blank_fragment" />
+            card_view:layout_constraintTop_toBottomOf="@+id/tv_item_name"
+            tools:text="@string/hello_blank_fragment"
+            android:transitionName="description"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
