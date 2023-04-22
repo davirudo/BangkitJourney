@@ -6,8 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".activity.RegisterActivity">
 
+
+    <TextView
+        android:id="@+id/joinUs"
+        android:alpha="0"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="100dp"
+        android:text="@string/join_us"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <EditText
         android:id="@+id/ed_register_name"
+        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -16,10 +34,11 @@
         android:hint="@string/name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/joinUs" />
 
     <com.example.katahati.utils.EmailEditText
         android:id="@+id/ed_register_email"
+        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
@@ -31,6 +50,7 @@
 
     <com.example.katahati.utils.PasswordEditText
         android:id="@+id/ed_register_password"
+        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginHorizontal="50dp"
@@ -43,6 +63,7 @@
 
     <Button
         android:id="@+id/btnSignUp"
+        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"

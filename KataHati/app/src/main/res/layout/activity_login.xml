@@ -20,6 +20,7 @@
 
     <com.example.katahati.utils.EmailEditText
         android:id="@+id/ed_login_email"
+        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
@@ -32,6 +33,7 @@
 
     <com.example.katahati.utils.PasswordEditText
         android:id="@+id/ed_login_password"
+        android:alpha="0"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginTop="16dp"
@@ -46,6 +48,7 @@
 
     <Button
         android:id="@+id/btnLogin"
+        android:alpha="0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
@@ -68,6 +71,8 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
+            android:id="@+id/tvDontHave"
+            android:alpha="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
@@ -75,6 +80,7 @@
 
         <TextView
             android:id="@+id/tvSignUp"
+            android:alpha="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tv_register"

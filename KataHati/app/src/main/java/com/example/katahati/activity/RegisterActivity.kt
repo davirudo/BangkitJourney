@@ -1,9 +1,12 @@
 package com.example.katahati.activity
 
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.katahati.databinding.ActivityRegisterBinding
 import com.example.katahati.response.RegisterResponse
@@ -21,7 +24,7 @@ class RegisterActivity : AppCompatActivity() {
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
+        playAnimation()
 
         binding.btnSignUp.setOnClickListener {
             Toast.makeText(this, "Sign Up.....", Toast.LENGTH_SHORT).show()
@@ -56,10 +59,19 @@ class RegisterActivity : AppCompatActivity() {
                             "Something's wrong :(",
                             Toast.LENGTH_SHORT
                         ).show()
-
                     }
-
                 })
+        }
+    }
+    private fun playAnimation() {
+        val joinus = ObjectAnimator.ofFloat(binding.joinUs, View.ALPHA, 1f).setDuration(500)
+        val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)
+        val password = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
+        val signup = ObjectAnimator.ofFloat(binding.btnSignUp, View.ALPHA, 1f).setDuration(500)
+
+        AnimatorSet().apply {
+            playSequentially(joinus, email, password, signup)
+            start()
         }
     }
 }
