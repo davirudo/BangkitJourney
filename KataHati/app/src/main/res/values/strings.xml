@@ -11,8 +11,18 @@
     <string name="login_failed">"Login failed"</string>
     <string name="donthave">"Don't have an account yet?"</string>
     <string name="tv_register">"Click Here"</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="story">Story</string>
     <string name="settings">Settings</string>
+    <string name="add_story">Add Story</string>
+    <string name="desc_hati">Tell me what happen…</string>
+    <string name="file">File</string>
+    <string name="tambah_foto">Photo</string>
+    <string name="camera">Camera</string>
+    <string name="post">POSTING</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="name">Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="join_us">JOIN US!</string>
 </resources>
