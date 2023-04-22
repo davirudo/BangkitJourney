@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".activity.RegisterActivity">
 
-
     <TextView
         android:id="@+id/joinUs"
         android:alpha="0"
@@ -21,7 +20,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <EditText
         android:id="@+id/ed_register_name"
