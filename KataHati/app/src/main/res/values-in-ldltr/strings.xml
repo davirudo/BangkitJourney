@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Kata Hati</string>
+    <string name="email">Email</string>
+    <string name="password">Kata Sandi</string>
+    <string name="sign_in">Masuk</string>
+    <string name="sign_in_short">Masuk</string>
+    <string name="welcoe">"Selamat Datang!"</string>
+    <string name="invalid_username">Nama pengguna tidak valid</string>
+    <string name="invalid_password">Kata sandi harus >8 karakter</string>
+    <string name="login_failed">"Gagal masuk"</string>
+    <string name="donthave">"Belum punya akun? Klik di"</string>
+    <string name="tv_register">"sini"</string>
+    <string name="hello_blank_fragment">ini fragment kosong</string>
+    <string name="story">Cerita</string>
+    <string name="settings">Pengaturan</string>
+    <string name="add_story">Tambah Cerita</string>
+    <string name="desc_hati">Mau curhat apa…</string>
+    <string name="file">Berkas</string>
+    <string name="tambah_foto">Foto</string>
+    <string name="camera">Kamera</string>
+    <string name="post">KIRIM</string>
+    <string name="sign_out">Keluar</string>
+    <string name="name">Nama</string>
+    <string name="sign_up">Daftar</string>
+    <string name="join_us">BERGABUNG BERSAMA KAMI!</string>
+    <string name="change_language">Ganti Bahasa</string>
+</resources>
