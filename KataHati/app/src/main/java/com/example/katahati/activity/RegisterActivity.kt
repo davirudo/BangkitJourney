@@ -65,12 +65,13 @@ class RegisterActivity : AppCompatActivity() {
     }
     private fun playAnimation() {
         val joinus = ObjectAnimator.ofFloat(binding.joinUs, View.ALPHA, 1f).setDuration(500)
+        val name = ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(500)
         val email = ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(500)
         val password = ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(500)
         val signup = ObjectAnimator.ofFloat(binding.btnSignUp, View.ALPHA, 1f).setDuration(500)
 
         AnimatorSet().apply {
-            playSequentially(joinus, email, password, signup)
+            playSequentially(joinus, name, email, password, signup)
             start()
         }
     }
