@@ -46,7 +46,7 @@ class PasswordEditText : AppCompatEditText, View.OnTouchListener {
 
             override fun onTextChanged(p0: CharSequence, p1: Int, p2: Int, p3: Int) {
                 if (p0.toString().isNotEmpty()) showEyeButton() else hideEyeButton()
-                error = if (p0.length < 8) "8 Characters Minimum" else null
+                error = if (p0.length < 8) context.getString(R.string.eight_char) else null
             }
 
             override fun afterTextChanged(p0: Editable) {}

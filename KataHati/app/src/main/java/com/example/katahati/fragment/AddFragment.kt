@@ -43,11 +43,6 @@ class AddFragment : Fragment() {
 
     private var getFile: File? = null
 
-    companion object {
-        private val REQUIRED_PERMISSIONS = arrayOf("android.permission.CAMERA")
-        private const val REQUEST_CODE_PERMISSIONS = 10
-    }
-
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -129,6 +124,7 @@ class AddFragment : Fragment() {
         launcherIntentGallery.launch(chooser)
     }
 
+    //sebaiknya di ViewModel kan
     private fun uploadStory() {
         Toast.makeText(requireContext(), "Posting.....", Toast.LENGTH_SHORT).show()
         if (getFile != null) {
@@ -189,5 +185,10 @@ class AddFragment : Fragment() {
                 binding.previewImageView.setImageURI(uri)
             }
         }
+    }
+
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf("android.permission.CAMERA")
+        private const val REQUEST_CODE_PERMISSIONS = 10
     }
 }

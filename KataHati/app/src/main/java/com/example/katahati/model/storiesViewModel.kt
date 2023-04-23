@@ -1,6 +1,7 @@
 package com.example.katahati.model
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -46,6 +47,7 @@ class StoriesViewModel : ViewModel() {
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable){
                 _isLoading.value = false
                 Log.e(TAG, "onFailure : ${t.message.toString()}")
+                //dikasih Toast
             }
             })
     }

@@ -1,6 +1,5 @@
 package com.example.katahati.activity
 
-import android.animation.Animator
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Intent
@@ -13,7 +12,6 @@ import com.example.katahati.databinding.ActivityLoginBinding
 import com.example.katahati.response.LoginResponse
 import com.example.katahati.retrofit.ApiConfig
 import com.example.katahati.utils.SessionManager
-import kotlinx.coroutines.NonCancellable.start
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,6 +47,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             Toast.makeText(this, "Sign In.....", Toast.LENGTH_SHORT).show()
 
+            //sebaiknya di ViewModel kan
             api.login(edEmail.text.toString(), edPassword.text.toString())
                 .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(

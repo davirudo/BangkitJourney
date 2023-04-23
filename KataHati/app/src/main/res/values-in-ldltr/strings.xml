@@ -25,4 +25,5 @@
     <string name="sign_up">Daftar</string>
     <string name="join_us">BERGABUNG BERSAMA KAMI!</string>
     <string name="change_language">Ganti Bahasa</string>
+    <string name="eight_char">Minimal 8 karakter</string>
 </resources>

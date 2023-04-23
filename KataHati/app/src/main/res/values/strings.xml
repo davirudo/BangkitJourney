@@ -24,4 +24,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="join_us">JOIN US!</string>
     <string name="change_language">Change Language</string>
+    <string name="eight_char">8 Characters Minimum</string>
 </resources>
