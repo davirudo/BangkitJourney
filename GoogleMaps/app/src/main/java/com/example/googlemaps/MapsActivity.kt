@@ -20,11 +20,8 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.example.googlemaps.databinding.ActivityMapsBinding
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
+import com.google.android.gms.maps.model.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -85,6 +82,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         getMyLocation()
+        addManyMarker()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -153,6 +151,46 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
+
+    data class TourismPlace(
+        val name: String,
+        val latitude: Double,
+        val longitude: Double
+    )
+
+    private val boundsBuilder = LatLngBounds.Builder()
+
+    private fun addManyMarker() {
+        val tourismPlace = listOf(
+            TourismPlace("Pisa", 43.7231557, 10.3965539),
+            TourismPlace("Colosseum", 41.8902102, 12.4900422),
+            TourismPlace("Santorini", 36.4078457, 25.4564788),
+            TourismPlace("Great Wall of China", 40.4319077, 116.5703749),
+            TourismPlace("Kremlin", 55.751667, 37.617778),
+            TourismPlace("Taj Mahal", 27.1750151, 78.0421552),
+        )
+        tourismPlace.forEach { tourism ->
+            val latLng = LatLng(tourism.latitude, tourism.longitude)
+            mMap.addMarker(
+                MarkerOptions()
+                    .position(latLng)
+                    .title(tourism.name)
+            )
+            boundsBuilder.include(latLng)
+        }
+
+        val bounds: LatLngBounds = boundsBuilder.build()
+        mMap.animateCamera(
+            CameraUpdateFactory.newLatLngBounds(
+                bounds,
+                resources.displayMetrics.widthPixels,
+                resources.displayMetrics.heightPixels,
+                300
+            )
+        )
+    }
+
+
 
 
 }
