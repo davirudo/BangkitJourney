@@ -39,9 +39,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isMapToolbarEnabled = true
 
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+//        val sydney = LatLng(-34.0, 151.0)
+//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+
+        val myMark = LatLng(-6.8957643, 107.6338462)
+        mMap.addMarker(
+            MarkerOptions().position(myMark)
+                .title("Marker in Bandung")
+                .snippet("Ini adalah kota Bandung")
+        )
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myMark, 15f))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
