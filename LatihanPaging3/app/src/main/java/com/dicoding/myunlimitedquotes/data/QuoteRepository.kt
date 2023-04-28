@@ -19,6 +19,5 @@ class QuoteRepository(private val quoteDatabase: QuoteDatabase, private val apiS
                 QuotePagingSource(apiService)
             }
             ).liveData
-        )
     }
 }
