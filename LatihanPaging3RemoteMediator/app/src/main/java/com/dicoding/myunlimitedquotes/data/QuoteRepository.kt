@@ -13,11 +13,11 @@ class QuoteRepository(private val quoteDatabase: QuoteDatabase, private val apiS
     fun getQuote(): LiveData<PagingData<QuoteResponseItem>> {
         return Pager(
             config = PagingConfig(
-                pageSize = 5,
+                pageSize = 5
             ),
             pagingSourceFactory = {
                 QuotePagingSource(apiService)
             }
-            ).liveData
+        ).liveData
     }
 }
