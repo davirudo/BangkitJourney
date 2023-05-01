@@ -37,9 +37,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val test = LatLng(-6.8957643, 107.6338462)
+        mMap.addMarker(
+            MarkerOptions()
+                .position(test)
+                .title("Test")
+                .snippet("How Hungry")
+        )
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15f))
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
