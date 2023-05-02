@@ -41,4 +41,9 @@ interface ApiService {
         @Part photo: MultipartBody.Part,
         @Part("description") description: RequestBody,
     ): Call<AddResponse>
+
+    @GET("stories")
+    fun getAllUserLocation(
+        @Header("Authorization") token: String,
+    ): Call<StoriesResponse>
 }
