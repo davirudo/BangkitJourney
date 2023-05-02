@@ -24,4 +24,8 @@
             android:id="@+id/action_addFragment_to_storyFragment"
             app:destination="@id/storyFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.example.katahatiplus.fragment.MapFragment"
+        android:label="MapFragment" />
 </navigation>
