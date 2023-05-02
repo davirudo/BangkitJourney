@@ -1,9 +1,12 @@
 package com.example.katahatiplus
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -45,6 +48,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 .snippet("How Hungry")
         )
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15f))
+
+        getMyLocation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -72,6 +77,26 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             else -> {
                 super.onOptionsItemSelected(item)
             }
+        }
+    }
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                getMyLocation()
+            }
+        }
+    private fun getMyLocation() {
+        if (ContextCompat.checkSelfPermission(
+                this.applicationContext,
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            mMap.isMyLocationEnabled = true
+        } else {
+            requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 }
