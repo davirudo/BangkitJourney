@@ -25,7 +25,7 @@
             app:destination="@id/storyFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.example.katahatiplus.fragment.MapFragment"
-        android:label="MapFragment" />
+        android:id="@+id/mapsFragment"
+        android:name="com.example.katahatiplus.fragment.MapsFragment"
+        android:label="MapsFragment" />
 </navigation>
