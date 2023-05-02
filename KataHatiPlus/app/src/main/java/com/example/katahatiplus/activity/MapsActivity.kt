@@ -1,4 +1,4 @@
-package com.example.katahatiplus
+package com.example.katahatiplus.activity
 
 import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
@@ -10,6 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
+import com.example.katahatiplus.R
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
