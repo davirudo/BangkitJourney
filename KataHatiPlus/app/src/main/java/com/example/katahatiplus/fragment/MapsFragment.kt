@@ -10,9 +10,11 @@ import android.view.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.katahatiplus.R
 import com.example.katahatiplus.activity.LoginActivity
 import com.example.katahatiplus.databinding.FragmentMapsBinding
+import com.example.katahatiplus.model.MapsViewModel
 import com.example.katahatiplus.response.StoriesResponse
 import com.example.katahatiplus.retrofit.ApiConfig
 import com.example.katahatiplus.utils.SessionManager
@@ -44,6 +46,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: FragmentMapsBinding
     private val boundsBuilder = LatLngBounds.Builder()
+    private val mapsViewModel: MapsViewModel by lazy {
+        ViewModelProvider(this)[MapsViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,8 +61,13 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
+        val token = LoginActivity.sessionManager.getString("TOKEN")
+        mapsViewModel.getAllUserLocation(token.toString())
+
+        val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapsFragment.getMapAsync(this)
+        
+        
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -68,18 +78,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-//        val test = LatLng(-6.8957643, 107.6338462)
-//        mMap.addMarker(
-//            MarkerOptions()
-//                .position(test)
-//                .title("Test")
-//                .snippet("How Hungry")
-//        )
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15f))
-
         getMyLocation()
         setMapStyle()
-        getAllUserLocation()
+//        setAllUserLocation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -111,14 +112,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            getMyLocation()
-        }
-    }
-
     private fun getMyLocation() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
@@ -143,10 +136,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun getAllUserLocation() {
-
-//        val apiService = ApiConfig.getApiService()
-//
+    private fun setAllUserLocation() {
 //        val url = "https://story-api.dicoding.dev/v1/stories?location=1"
 //        val request = Request.Builder().url(url).build()
 //
@@ -187,8 +177,15 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 //                    )
 //                }
 //            }
-//
 //        })
+    }
+
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            getMyLocation()
+        }
     }
 
     //Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar.
