@@ -1,6 +1,7 @@
 package com.example.katahatiplus.fragment
 
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Bundle
@@ -10,7 +11,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.katahatiplus.R
+import com.example.katahatiplus.activity.LoginActivity
 import com.example.katahatiplus.databinding.FragmentMapsBinding
+import com.example.katahatiplus.response.StoriesResponse
+import com.example.katahatiplus.retrofit.ApiConfig
+import com.example.katahatiplus.utils.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,11 +23,27 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.gson.Gson
+
+import okhttp3.Request
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.IOException
+import java.net.URL
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: FragmentMapsBinding
+    private val boundsBuilder = LatLngBounds.Builder()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +60,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
     }
 
-//    override fun onDestroyView() {
-//        super.onDestroyView()
-//        binding = null
-//    }
-
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
@@ -52,17 +68,18 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         mMap.uiSettings.isCompassEnabled = true
         mMap.uiSettings.isMapToolbarEnabled = true
 
-        val test = LatLng(-6.8957643, 107.6338462)
-        mMap.addMarker(
-            MarkerOptions()
-                .position(test)
-                .title("Test")
-                .snippet("How Hungry")
-        )
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15f))
+//        val test = LatLng(-6.8957643, 107.6338462)
+//        mMap.addMarker(
+//            MarkerOptions()
+//                .position(test)
+//                .title("Test")
+//                .snippet("How Hungry")
+//        )
+//        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(test, 15f))
 
         getMyLocation()
         setMapStyle()
+        getAllUserLocation()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -124,5 +141,67 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         } catch (exception: Resources.NotFoundException) {
             Log.e(TAG, "Can't find style. Error: ", exception)
         }
+    }
+
+    private fun getAllUserLocation() {
+
+//        val apiService = ApiConfig.getApiService()
+//
+//        val url = "https://story-api.dicoding.dev/v1/stories?location=1"
+//        val request = Request.Builder().url(url).build()
+//
+//        val client = okhttp3.OkHttpClient()
+//        client.newCall(request).enqueue(object : Callback {
+//            override fun onFailure(call: Call, e: IOException) {
+//                Log.e(TAG, "Failed", e)
+//            }
+//
+//            override fun onResponse(call: Call, response: Response) {
+//                if (!response.isSuccessful) {
+//                    Log.e(TAG, "Failed to get stories. Code: ${response.code}")
+//                    return
+//                }
+//
+//                val responseBody = response.body?.string()
+//                val gson = Gson()
+//                val stories = gson.fromJson(responseBody, StoriesResponse::class.java)
+//
+//                val storiesLocation = stories.listStory.filter { it.lat != null && it.lon != null }
+//
+//                activity?.runOnUiThread {
+//                    storiesLocation.forEach { story ->
+//                        val latLng = LatLng(story.lat as Double, story.lon as Double)
+//                        mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
+////                        snippet(story.description))
+//                        boundsBuilder.include(latLng)
+//                    }
+//
+//                    val bounds: LatLngBounds = boundsBuilder.build()
+//                    mMap.animateCamera(
+//                        CameraUpdateFactory.newLatLngBounds(
+//                            bounds,
+//                            resources.displayMetrics.widthPixels,
+//                            resources.displayMetrics.heightPixels,
+//                            300
+//                        )
+//                    )
+//                }
+//            }
+//
+//        })
+    }
+
+    //Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar.
+        //Data story yang memiliki lokasi latitude dan longitude dapat diambil melalui parameter location seperti berikut
+        //https://story-api.dicoding.dev/v1/stories?location=1
+
+        //TODO 13: Panggil fungsi getAllUserLocation() di dalam onMapReady()
+        //TODO 14: Buat variabel stories untuk menampung data story yang memiliki lokasi
+        //TODO 15: Tambahkan marker untuk setiap data story yang ada di variabel stories
+        //TODO 16: Tambahkan animasi kamera untuk menampilkan semua marker yang ada di peta
+
+    companion object {
+        lateinit var sessionManager: SessionManager
+        private lateinit var context: Context
     }
 }
