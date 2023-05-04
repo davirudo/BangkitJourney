@@ -8,14 +8,15 @@ import com.example.katahatiplus.retrofit.ApiService
 
 
 class StoriesRepository(private val storiesDatabase: StoriesDatabase, private val apiService: ApiService){
-
-    fun getStories(): LiveData<PagingData<ListStoryItem>> {
+    fun getStories(token: String): LiveData<PagingData<ListStoryItem>> {
+        @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
                 pageSize = 5
             ),
+            remoteMediator = StoriesRemoteMediator(storiesDatabase, apiService, token),
             pagingSourceFactory = {
-                StoriesPagingSource(apiService)
+            storiesDatabase.storiesDao().getAllStories()
             }
         ).liveData
     }
