@@ -9,7 +9,7 @@ import com.example.katahatiplus.response.ListStoryItem
 interface StoriesDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStories(quote: List<ListStoryItem>)
+    suspend fun insertStories(stories: List<ListStoryItem>)
 
     @Query("SELECT * FROM stories")
     fun getAllStories(): PagingSource<Int, ListStoryItem>
