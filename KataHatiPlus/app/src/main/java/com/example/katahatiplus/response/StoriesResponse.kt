@@ -1,6 +1,7 @@
 package com.example.katahatiplus.response
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 data class StoriesResponse(
@@ -17,6 +18,9 @@ data class StoriesResponse(
 
 @Entity(tableName = "stories")
 data class ListStoryItem(
+	@PrimaryKey
+	@field:SerializedName("id")
+	val id: String,
 
 	@field:SerializedName("photoUrl")
 	val photoUrl: String,
@@ -31,11 +35,8 @@ data class ListStoryItem(
 	val description: String,
 
 	@field:SerializedName("lon")
-	val lon: Any,
-
-	@field:SerializedName("id")
-	val id: String,
+	val lon: Float,
 
 	@field:SerializedName("lat")
-	val lat: Any
+	val lat: Float
 )
