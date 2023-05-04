@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import com.example.katahatiplus.response.ListStoryItem
 
 @Database(
-    entities = [ListStoryItem::class],
+    entities = [ListStoryItem::class, RemoteKeys::class],
     version = 2,
     exportSchema = false
 )
