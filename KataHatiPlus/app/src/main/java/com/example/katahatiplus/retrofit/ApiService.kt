@@ -28,6 +28,13 @@ interface ApiService {
         @Query("size") size: Int? = 15,
     ): Call<StoriesResponse>
 
+    @GET("stories")
+    suspend fun getAllStoriesPaging(
+        @Header("Authorization") token: String,
+        @Query("size") size: Int,
+        @Query("page") page: Int
+    ): List<ListStoryItem>
+
     @GET("stories/{id}")
     fun getDetail(
         @Header("Authorization") token: String,
