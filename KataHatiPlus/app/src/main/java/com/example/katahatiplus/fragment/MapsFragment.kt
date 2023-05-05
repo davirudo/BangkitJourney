@@ -59,9 +59,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionManager = SessionManager(requireContext())
-        val token = LoginActivity.sessionManager.getString("TOKEN")
-        setAllUserLocation(token.toString())
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsFragment.getMapAsync(this)
@@ -70,6 +67,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        val token = LoginActivity.sessionManager.getString("TOKEN")
         mMap = googleMap
 
         mMap.uiSettings.isZoomControlsEnabled = true
@@ -79,7 +77,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         getMyLocation()
         setMapStyle()
-//        setAllUserLocation()
+        setAllUserLocation(token.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
