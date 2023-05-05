@@ -1,4 +1,4 @@
-package com.example.katahatiplus.adapter
+package com.example.katahatiplus.zone
 
 import android.content.Intent
 import android.view.LayoutInflater

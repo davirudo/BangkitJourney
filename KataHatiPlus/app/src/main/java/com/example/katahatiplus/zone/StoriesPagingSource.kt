@@ -1,4 +1,4 @@
-package com.example.katahatiplus.data
+package com.example.katahatiplus.zone
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState

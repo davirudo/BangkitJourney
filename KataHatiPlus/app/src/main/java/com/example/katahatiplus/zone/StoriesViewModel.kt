@@ -1,4 +1,4 @@
-package com.example.katahatiplus.model
+package com.example.katahatiplus.zone
 
 import android.util.Log
 import androidx.lifecycle.LiveData
