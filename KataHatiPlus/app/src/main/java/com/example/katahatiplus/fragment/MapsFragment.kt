@@ -140,57 +140,7 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private fun setAllUserLocation(token: String) {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
-        client.enqueue(object : Callback<StoriesResponse> {
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                Log.e(TAG, "Failed", t)
-            }
-
-            override fun onResponse(
-                call: Call<StoriesResponse>,
-                response: Response<StoriesResponse>
-            ) {
-                if (!response.isSuccessful) {
-                    Log.e(TAG, "Failed to get stories.")
-                    return
-                }
-
-                val responseBody = response.body()?.listStory.toString()
-                val jsonArray = JSONArray(responseBody)
-                for (i in 0 until jsonArray.length()) {
-                    val jsonObject = jsonArray.getJSONObject(i)
-                    val lat = jsonObject.getString("lat")
-                    val lon = jsonObject.getString("lon")
-                    val name = jsonObject.getString("name")
-                    val description = jsonObject.getString("description")
-                    val latLng = LatLng(lat.toDouble(), lon.toDouble())
-                    mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(description))
-                    boundsBuilder.include(latLng)
-                }
-//                val gson = Gson()
-//                val stories = gson.fromJson(responseBody, StoriesResponse::class.java)
-//
-//                val storiesLocation = stories.listStory.filter { it.lat != null && it.lon != null }
-//
-//                activity?.runOnUiThread {
-//                    storiesLocation.forEach { story ->
-//                        val latLng = LatLng(story.lat as Double, story.lon as Double)
-//                        mMap.addMarker(MarkerOptions().position(latLng).title(story.name))
-////                        snippet(story.description))
-//                        boundsBuilder.include(latLng)
-//                    }
-//
-//                    val bounds: LatLngBounds = boundsBuilder.build()
-//                    mMap.animateCamera(
-//                        CameraUpdateFactory.newLatLngBounds(
-//                            bounds,
-//                            resources.displayMetrics.widthPixels,
-//                            resources.displayMetrics.heightPixels,
-//                            300
-//                        )
-//                    )
-//                }
-            }
-        })
+        client.enqueue(object : Callback<StoriesResponse> {})
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
