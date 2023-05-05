@@ -44,8 +44,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsFragment.getMapAsync(this)
-        
-        
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -87,32 +85,28 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     }
 
     private fun setAllUserLocation(token: String) {
-
         val client = ApiConfig.getApiService().getAllUserLocation(token)
         client.enqueue(object : Callback<StoriesResponse> {
             override fun onResponse(call: Call<StoriesResponse>, response: Response<StoriesResponse>) {
                 if (response.isSuccessful) {
-                    val stories = response.body()?.listStory?.filter { it.lat != null && it.lon != null }
+                    val stories = response.body()?.listStory?.filter { true }
                         stories?.forEach { story ->
                             val markerOptions = MarkerOptions()
                                 .position(LatLng(story.lat, story.lon))
                                 .title(story.name)
+                                .snippet(story.description)
                             boundsBuilder.include(markerOptions.position)
                             val bounds = boundsBuilder.build()
-                            val padding = 300
-                            val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-                            mMap.animateCamera(cameraUpdate)
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 300))
                             mMap.addMarker(markerOptions)
                     }
                 } else {
                     Log.e(TAG, "Response failed: ${response.code()}")
                 }
             }
-
             override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
                 Log.e(TAG, "Failed to get stories: ${t.message}")
             }
-
         })
     }
 
