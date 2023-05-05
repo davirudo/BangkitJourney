@@ -15,7 +15,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.katahatiplus.R
 import com.example.katahatiplus.activity.LoginActivity
 import com.example.katahatiplus.databinding.FragmentMapsBinding
-import com.example.katahatiplus.model.MapsViewModel
 import com.example.katahatiplus.response.ListStoryItem
 import com.example.katahatiplus.response.StoriesResponse
 import com.example.katahatiplus.retrofit.ApiConfig
@@ -48,9 +47,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mMap: GoogleMap
     private lateinit var binding: FragmentMapsBinding
     private val boundsBuilder = LatLngBounds.Builder()
-    private val mapsViewModel: MapsViewModel by lazy {
-        ViewModelProvider(this)[MapsViewModel::class.java]
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -139,16 +135,34 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    //Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar.
+    //Data story yang memiliki lokasi latitude dan longitude dapat diambil melalui parameter location seperti berikut
+    //https://story-api.dicoding.dev/v1/stories?location=1
     private fun setAllUserLocation(token: String) {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
-        client.enqueue(object : Callback<ListStoryItem> {
-            override fun onResponse(call: Call<ListStoryItem>, response: Response<ListStoryItem>) {
-                TODO("Not yet implemented")
+        client.enqueue(object : Callback<StoriesResponse> {
+            override fun onResponse(call: Call<StoriesResponse>, response: Response<StoriesResponse>) {
+                if (response.isSuccessful) {
+                    val stories = response.body()?.listStory?.filter { it.lat != null && it.lon != null }
+                    val mapFragment = SupportMapFragment.newInstance()
+                    val transaction = fragmentManager?.beginTransaction()
+                    transaction?.replace(R.id.container, mapFragment)?.commit()
+                    mapFragment.getMapAsync { googleMap ->
+                        stories?.forEach { story ->
+                            val markerOptions = MarkerOptions()
+                                .position(LatLng(story.lat!!.toDouble(), story.lon!!.toDouble()))
+                                .title(story.name)
+                            googleMap.addMarker(markerOptions)
+                        }
+                    }
+                } else {
+                    Log.e(TAG, "Response failed: ${response.code()}")
+                }
             }
 
-            override fun onFailure(call: Call<ListStoryItem>, t: Throwable) {
-                TODO("Not yet implemented")
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+                Log.e(TAG, "Failed to get stories: ${t.message}")
             }
 
         })
