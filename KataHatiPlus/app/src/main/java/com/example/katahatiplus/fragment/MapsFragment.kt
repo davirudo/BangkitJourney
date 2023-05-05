@@ -153,6 +153,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                             val markerOptions = MarkerOptions()
                                 .position(LatLng(story.lat, story.lon))
                                 .title(story.name)
+                            boundsBuilder.include(markerOptions.position)
+                            val bounds = boundsBuilder.build()
+                            val padding = 100
+                            val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
+                            googleMap.animateCamera(cameraUpdate)
                             googleMap.addMarker(markerOptions)
                         }
                     }
@@ -175,10 +180,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             getMyLocation()
         }
     }
-
-    //Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar.
-        //Data story yang memiliki lokasi latitude dan longitude dapat diambil melalui parameter location seperti berikut
-        //https://story-api.dicoding.dev/v1/stories?location=1
 
         //TODO 13: Panggil fungsi getAllUserLocation() di dalam onMapReady()
         //TODO 14: Buat variabel stories untuk menampung data story yang memiliki lokasi
