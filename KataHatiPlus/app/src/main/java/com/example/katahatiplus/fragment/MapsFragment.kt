@@ -122,21 +122,16 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
             override fun onResponse(call: Call<StoriesResponse>, response: Response<StoriesResponse>) {
                 if (response.isSuccessful) {
                     val stories = response.body()?.listStory?.filter { it.lat != null && it.lon != null }
-                    val mapFragment = SupportMapFragment.newInstance()
-                    val transaction = fragmentManager?.beginTransaction()
-                    transaction?.replace(R.id.map, mapFragment)?.commit()
-                    mapFragment.getMapAsync { googleMap ->
                         stories?.forEach { story ->
                             val markerOptions = MarkerOptions()
                                 .position(LatLng(story.lat, story.lon))
                                 .title(story.name)
                             boundsBuilder.include(markerOptions.position)
                             val bounds = boundsBuilder.build()
-                            val padding = 100
+                            val padding = 300
                             val cameraUpdate = CameraUpdateFactory.newLatLngBounds(bounds, padding)
-                            googleMap.animateCamera(cameraUpdate)
-                            googleMap.addMarker(markerOptions)
-                        }
+                            mMap.animateCamera(cameraUpdate)
+                            mMap.addMarker(markerOptions)
                     }
                 } else {
                     Log.e(TAG, "Response failed: ${response.code()}")
