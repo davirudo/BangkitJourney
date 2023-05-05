@@ -7,6 +7,7 @@ import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +16,7 @@ import com.example.katahatiplus.R
 import com.example.katahatiplus.activity.LoginActivity
 import com.example.katahatiplus.databinding.FragmentMapsBinding
 import com.example.katahatiplus.model.MapsViewModel
+import com.example.katahatiplus.response.ListStoryItem
 import com.example.katahatiplus.response.StoriesResponse
 import com.example.katahatiplus.retrofit.ApiConfig
 import com.example.katahatiplus.utils.SessionManager
@@ -140,16 +142,33 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private fun setAllUserLocation(token: String) {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
-        client.enqueue(object : Callback<StoriesResponse> {
+        client.enqueue(object : Callback<ListStoryItem> {
             override fun onResponse(
-                call: Call<StoriesResponse>,
-                response: Response<StoriesResponse>
+                call: Call<ListStoryItem>,
+                response: Response<ListStoryItem>
             ) {
-                TODO("Not yet implemented")
+                if (response.isSuccessful) {
+                    val stories = response.body()?.listStory
+                    if (stories != null) {
+                        for (story in stories) {
+                            val latLng = LatLng(story.latitude, story.longitude)
+                            boundsBuilder.include(latLng)
+                            mMap.addMarker(
+                                MarkerOptions()
+                                    .position(latLng)
+                                    .title(story.title)
+                                    .snippet(story.description)
+                            )
+                        }
+                        val bounds = boundsBuilder.build()
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
+                    }
+                }
             }
 
-            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
-                TODO("Not yet implemented")
+            override fun onFailure(call: Call<ListStoryItem>, t: Throwable) {
+                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
+                Log.e(TAG, t.message.toString())
             }
 
         })
