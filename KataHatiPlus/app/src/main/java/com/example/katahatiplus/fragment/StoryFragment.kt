@@ -1,6 +1,5 @@
 package com.example.katahatiplus.fragment
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,10 +33,7 @@ class StoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        sessionManager = SessionManager(requireContext())
         val token = LoginActivity.sessionManager.getString("TOKEN")
-        storiesViewModel.getStories(token.toString())
 
         val layoutManager = LinearLayoutManager(requireContext())
         binding.rvStory.layoutManager = layoutManager
@@ -54,13 +50,12 @@ class StoryFragment : Fragment() {
                 adapter.retry()
             }
         )
-        storiesViewModel.getStories(token).observe(requireActivity()) {
-            adapter.submitData(viewLifecycleOwner.lifecycle, it)
+        storiesViewModel.getStories(token).observe(viewLifecycleOwner) { getStories ->
+            adapter.submitData(lifecycle, getStories)
         }
     }
 
     companion object {
         lateinit var sessionManager: SessionManager
-        private lateinit var context: Context
     }
 }
