@@ -143,32 +143,12 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
         client.enqueue(object : Callback<ListStoryItem> {
-            override fun onResponse(
-                call: Call<ListStoryItem>,
-                response: Response<ListStoryItem>
-            ) {
-                if (response.isSuccessful) {
-                    val stories = response.body()?.listStory
-                    if (stories != null) {
-                        for (story in stories) {
-                            val latLng = LatLng(story.latitude, story.longitude)
-                            boundsBuilder.include(latLng)
-                            mMap.addMarker(
-                                MarkerOptions()
-                                    .position(latLng)
-                                    .title(story.title)
-                                    .snippet(story.description)
-                            )
-                        }
-                        val bounds = boundsBuilder.build()
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100))
-                    }
-                }
+            override fun onResponse(call: Call<ListStoryItem>, response: Response<ListStoryItem>) {
+                TODO("Not yet implemented")
             }
 
             override fun onFailure(call: Call<ListStoryItem>, t: Throwable) {
-                Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
-                Log.e(TAG, t.message.toString())
+                TODO("Not yet implemented")
             }
 
         })
