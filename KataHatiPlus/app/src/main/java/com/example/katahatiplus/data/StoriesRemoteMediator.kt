@@ -49,21 +49,20 @@ class StoriesRemoteMediator(
         }
         try {
             val responseData = apiService.getAllStoriesPaging(token, page, state.config.pageSize)
-
-            val endOfPaginationReached = responseData.isEmpty()
-
+            val list = responseData.listStory
+            val endOfPaginationReached = list.isEmpty()
             storiesDatabase.withTransaction {
                 if (loadType == LoadType.REFRESH) {
                     storiesDatabase.remoteKeysDao().deleteRemoteKeys()
                     storiesDatabase.storiesDao().deleteAll()
                 }
-                val prevKey = if (page == 1) null else page - 1
+                val prevKey = if (page == INITIAL_PAGE_INDEX) null else page - 1
                 val nextKey = if (endOfPaginationReached) null else page + 1
-                val keys = responseData.map {
+                val keys = list.map {
                     RemoteKeys(id = it.id, prevKey = prevKey, nextKey = nextKey)
                 }
                 storiesDatabase.remoteKeysDao().insertAll(keys)
-                storiesDatabase.storiesDao().insertStories(responseData)
+                storiesDatabase.storiesDao().insertStories(list)
             }
             return MediatorResult.Success(endOfPaginationReached = endOfPaginationReached)
         } catch (exception: Exception) {
