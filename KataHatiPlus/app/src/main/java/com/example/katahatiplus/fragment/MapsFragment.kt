@@ -140,7 +140,19 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     private fun setAllUserLocation(token: String) {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
-        client.enqueue(object : Callback<StoriesResponse> {})
+        client.enqueue(object : Callback<StoriesResponse> {
+            override fun onResponse(
+                call: Call<StoriesResponse>,
+                response: Response<StoriesResponse>
+            ) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+                TODO("Not yet implemented")
+            }
+
+        })
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
