@@ -35,8 +35,8 @@ data class ListStoryItem(
 	val description: String,
 
 	@field:SerializedName("lon")
-	val lon: Float,
+	val lon: Double,
 
 	@field:SerializedName("lat")
-	val lat: Float
+	val lat: Double
 )
