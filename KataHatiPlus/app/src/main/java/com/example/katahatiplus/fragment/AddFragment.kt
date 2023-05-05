@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -125,14 +126,17 @@ class AddFragment : Fragment() {
 
     //sebaiknya di ViewModel kan
     private fun uploadStory() {
+        Log.e("TAG", "uploadStory: ")
         Toast.makeText(requireContext(), "Posting.....", Toast.LENGTH_SHORT).show()
         if (getFile != null) {
             val file = reduceFileImage(getFile as File)
 
             StoryFragment.sessionManager = SessionManager(requireContext())
+            Log.e("TAG", "uploadStory: ${StoryFragment.sessionManager.getString("TOKEN")}")
             val token = LoginActivity.sessionManager.getString("TOKEN")
             val description = binding.edAddDescription.text.toString().toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
+            Log.e("TAG", "uploadStory: ${file.name}")
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
                 "photo",
                 file.name,
@@ -145,14 +149,17 @@ class AddFragment : Fragment() {
                     if (response.isSuccessful) {
                         val responseBody = response.body()
                         if (responseBody != null && !responseBody.error) {
+                            Log.e("TAG", "onResponse: ${responseBody.message}")
                             Toast.makeText(requireContext(), responseBody.message, Toast.LENGTH_SHORT).show()
                             findNavController().navigate(AddFragmentDirections.actionAddFragmentToStoryFragment())
                         }
                     } else {
+                        Log.e("TAG", "onResponse: ${response.message()}")
                         Toast.makeText(requireContext(), response.message(), Toast.LENGTH_SHORT).show()
                     }
                 }
                 override fun onFailure(call: Call<AddResponse>, t: Throwable) {
+                    Log.e("TAG", "onFailure: ${t.message}")
                     Toast.makeText(requireContext(), t.message, Toast.LENGTH_SHORT).show()
                 }
             })
