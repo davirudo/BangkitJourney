@@ -147,11 +147,11 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
                     val stories = response.body()?.listStory?.filter { it.lat != null && it.lon != null }
                     val mapFragment = SupportMapFragment.newInstance()
                     val transaction = fragmentManager?.beginTransaction()
-                    transaction?.replace(R.id.container, mapFragment)?.commit()
+                    transaction?.replace(R.id.map, mapFragment)?.commit()
                     mapFragment.getMapAsync { googleMap ->
                         stories?.forEach { story ->
                             val markerOptions = MarkerOptions()
-                                .position(LatLng(story.lat!!.toDouble(), story.lon!!.toDouble()))
+                                .position(LatLng(story.lat, story.lon))
                                 .title(story.name)
                             googleMap.addMarker(markerOptions)
                         }
