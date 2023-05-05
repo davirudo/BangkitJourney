@@ -42,7 +42,6 @@ class RegisterActivity : AppCompatActivity() {
                         Log.e("SignUpResponse", response.toString())
                         val correct = response.isSuccessful
                         if (correct) {
-
                             Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT)
                                 .show()
                             val moveIntent =

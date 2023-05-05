@@ -47,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
         binding.btnLogin.setOnClickListener {
             Toast.makeText(this, "Sign In.....", Toast.LENGTH_SHORT).show()
 
-            //di ViewModel kan
             api.login(edEmail.text.toString(), edPassword.text.toString())
                 .enqueue(object : Callback<LoginResponse> {
                     override fun onResponse(
@@ -59,10 +58,8 @@ class LoginActivity : AppCompatActivity() {
 
                         if (correct) {
                             val token = response.body()!!.loginResult.token
-
                             sessionManager.saveString("TOKEN", "Bearer $token")
                             sessionManager.saveBoolean("LOGIN_STATUS", true)
-
 
                             val moveIntent = Intent(this@LoginActivity, MainActivity::class.java)
                             startActivity(moveIntent)

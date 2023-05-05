@@ -22,11 +22,6 @@ interface ApiService {
         @Field("password") password: String
     ): Call<RegisterResponse>
 
-    @GET("stories")
-    fun getAllStories(
-        @Header("Authorization") token: String,
-        @Query("size") size: Int? = 15,
-    ): Call<StoriesResponse>
 
     @GET("stories")
     suspend fun getAllStoriesPaging(

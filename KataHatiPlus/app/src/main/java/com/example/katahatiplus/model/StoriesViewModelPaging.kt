@@ -15,10 +15,6 @@ class StoriesViewModelPaging(private val storiesRepository: StoriesRepository): 
 
     fun getStories(token: String) : LiveData<PagingData<ListStoryItem>> =
         storiesRepository.getStories(token).cachedIn(viewModelScope)
-
-    companion object {
-        private const val TAG = "StoriesViewModelPaging"
-    }
 }
 
 class ViewModelFactory(private val context: Context) : ViewModelProvider.Factory {

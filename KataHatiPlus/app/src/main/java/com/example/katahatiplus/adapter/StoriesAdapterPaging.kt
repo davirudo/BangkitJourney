@@ -7,8 +7,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
-import com.example.katahatiplus.R
 import com.example.katahatiplus.activity.DetailActivity
 import com.example.katahatiplus.databinding.ItemStoriesBinding
 import com.example.katahatiplus.response.ListStoryItem
@@ -51,7 +49,6 @@ class StoriesAdapterPaging:
             override fun areItemsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
                 return oldItem == newItem
             }
-
             override fun areContentsTheSame(oldItem: ListStoryItem, newItem: ListStoryItem): Boolean {
                 return oldItem.id == newItem.id
             }
