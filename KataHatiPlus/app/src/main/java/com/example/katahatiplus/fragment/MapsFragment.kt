@@ -33,9 +33,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.IOException
@@ -61,8 +61,9 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        sessionManager = SessionManager(requireContext())
         val token = LoginActivity.sessionManager.getString("TOKEN")
-        mapsViewModel.getAllUserLocation(token.toString())
+        setAllUserLocation(token.toString())
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsFragment.getMapAsync(this)
@@ -136,23 +137,35 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    private fun setAllUserLocation() {
-//        val url = "https://story-api.dicoding.dev/v1/stories?location=1"
-//        val request = Request.Builder().url(url).build()
-//
-//        val client = okhttp3.OkHttpClient()
-//        client.newCall(request).enqueue(object : Callback {
-//            override fun onFailure(call: Call, e: IOException) {
-//                Log.e(TAG, "Failed", e)
-//            }
-//
-//            override fun onResponse(call: Call, response: Response) {
-//                if (!response.isSuccessful) {
-//                    Log.e(TAG, "Failed to get stories. Code: ${response.code}")
-//                    return
-//                }
-//
-//                val responseBody = response.body?.string()
+    private fun setAllUserLocation(token: String) {
+
+        val client = ApiConfig.getApiService().getAllUserLocation(token)
+        client.enqueue(object : Callback<StoriesResponse> {
+            override fun onFailure(call: Call<StoriesResponse>, t: Throwable) {
+                Log.e(TAG, "Failed", t)
+            }
+
+            override fun onResponse(
+                call: Call<StoriesResponse>,
+                response: Response<StoriesResponse>
+            ) {
+                if (!response.isSuccessful) {
+                    Log.e(TAG, "Failed to get stories.")
+                    return
+                }
+
+                val responseBody = response.body()?.listStory.toString()
+                val jsonArray = JSONArray(responseBody)
+                for (i in 0 until jsonArray.length()) {
+                    val jsonObject = jsonArray.getJSONObject(i)
+                    val lat = jsonObject.getString("lat")
+                    val lon = jsonObject.getString("lon")
+                    val name = jsonObject.getString("name")
+                    val description = jsonObject.getString("description")
+                    val latLng = LatLng(lat.toDouble(), lon.toDouble())
+                    mMap.addMarker(MarkerOptions().position(latLng).title(name).snippet(description))
+                    boundsBuilder.include(latLng)
+                }
 //                val gson = Gson()
 //                val stories = gson.fromJson(responseBody, StoriesResponse::class.java)
 //
@@ -176,8 +189,8 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 //                        )
 //                    )
 //                }
-//            }
-//        })
+            }
+        })
     }
 
     private val requestPermissionLauncher = registerForActivityResult(
