@@ -33,7 +33,7 @@ interface ApiService {
         @Header("Authorization") token: String,
         @Query("size") size: Int,
         @Query("page") page: Int
-    ): List<ListStoryItem>
+    ): StoriesResponse
 
     @GET("stories/{id}")
     fun getDetail(
