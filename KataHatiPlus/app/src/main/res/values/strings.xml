@@ -5,7 +5,6 @@
     <string name="satellite_type">Satellite</string>
     <string name="terrain_type">Terrain</string>
     <string name="hybrid_type">Hybrid</string>
-
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
@@ -31,4 +30,7 @@
     <string name="join_us">JOIN US!</string>
     <string name="change_language">Change Language</string>
     <string name="eight_char">8 Characters Minimum</string>
+    <string name="map">Map</string>
+    <string name="near_me">Around You</string>
+    <string name="retry">Retry</string>
 </resources>
