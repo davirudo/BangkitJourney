@@ -62,35 +62,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         setAllUserLocation(token.toString())
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.map_options, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.normal_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_NORMAL
-                true
-            }
-            R.id.satellite_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                true
-            }
-            R.id.terrain_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
-                true
-            }
-            R.id.hybrid_type -> {
-                mMap.mapType = GoogleMap.MAP_TYPE_HYBRID
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-        }
-    }
-
     private fun getMyLocation() {
         if (ContextCompat.checkSelfPermission(
                 requireContext(),
