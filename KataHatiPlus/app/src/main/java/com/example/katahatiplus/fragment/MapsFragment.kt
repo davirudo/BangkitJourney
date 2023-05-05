@@ -1,24 +1,18 @@
 package com.example.katahatiplus.fragment
-
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.katahatiplus.R
 import com.example.katahatiplus.activity.LoginActivity
 import com.example.katahatiplus.databinding.FragmentMapsBinding
-import com.example.katahatiplus.response.ListStoryItem
 import com.example.katahatiplus.response.StoriesResponse
 import com.example.katahatiplus.retrofit.ApiConfig
-import com.example.katahatiplus.utils.SessionManager
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -27,20 +21,9 @@ import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.gson.Gson
-
-import okhttp3.Request
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.IOException
-import java.net.URL
 
 class MapsFragment : Fragment(), OnMapReadyCallback {
 
@@ -58,7 +41,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         val mapsFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapsFragment.getMapAsync(this)
@@ -133,9 +115,6 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    //Menampilkan satu halaman baru berisi peta yang menampilkan semua cerita yang memiliki lokasi dengan benar.
-    //Data story yang memiliki lokasi latitude dan longitude dapat diambil melalui parameter location seperti berikut
-    //https://story-api.dicoding.dev/v1/stories?location=1
     private fun setAllUserLocation(token: String) {
 
         val client = ApiConfig.getApiService().getAllUserLocation(token)
@@ -177,15 +156,5 @@ class MapsFragment : Fragment(), OnMapReadyCallback {
         if (isGranted) {
             getMyLocation()
         }
-    }
-
-        //TODO 13: Panggil fungsi getAllUserLocation() di dalam onMapReady()
-        //TODO 14: Buat variabel stories untuk menampung data story yang memiliki lokasi
-        //TODO 15: Tambahkan marker untuk setiap data story yang ada di variabel stories
-        //TODO 16: Tambahkan animasi kamera untuk menampilkan semua marker yang ada di peta
-
-    companion object {
-        lateinit var sessionManager: SessionManager
-        private lateinit var context: Context
     }
 }
