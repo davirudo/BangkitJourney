@@ -124,8 +124,13 @@ class AddFragment : Fragment() {
         launcherIntentGallery.launch(chooser)
     }
 
-    //sebaiknya di ViewModel kan
     private fun uploadStory() {
+        val description = binding.edAddDescription.text.toString()
+        if(description.isEmpty()){
+            binding.edAddDescription.error = "Tulis sesuatu kek~"
+            binding.edAddDescription.requestFocus()
+            return
+        }
         Log.e("TAG", "uploadStory: ")
         Toast.makeText(requireContext(), "Posting.....", Toast.LENGTH_SHORT).show()
         if (getFile != null) {
@@ -134,7 +139,7 @@ class AddFragment : Fragment() {
             StoryFragment.sessionManager = SessionManager(requireContext())
             Log.e("TAG", "uploadStory: ${StoryFragment.sessionManager.getString("TOKEN")}")
             val token = LoginActivity.sessionManager.getString("TOKEN")
-            val description = binding.edAddDescription.text.toString().toRequestBody("text/plain".toMediaType())
+            val descriptionEd = description.toRequestBody("text/plain".toMediaType())
             val requestImageFile = file.asRequestBody("image/jpeg".toMediaType())
             Log.e("TAG", "uploadStory: ${file.name}")
             val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -143,7 +148,7 @@ class AddFragment : Fragment() {
                 requestImageFile
             )
             val apiService = ApiConfig.getApiService()
-            val uploadImageRequest = apiService.addNewStory(token.toString(), imageMultipart, description)
+            val uploadImageRequest = apiService.addNewStory(token.toString(), imageMultipart, descriptionEd)
             uploadImageRequest.enqueue(object : Callback<AddResponse> {
                 override fun onResponse(call: Call<AddResponse>, response: Response<AddResponse>) {
                     if (response.isSuccessful) {
