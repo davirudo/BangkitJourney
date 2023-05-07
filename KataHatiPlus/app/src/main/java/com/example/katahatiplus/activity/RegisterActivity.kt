@@ -33,34 +33,45 @@ class RegisterActivity : AppCompatActivity() {
             val edEmail = binding.edRegisterEmail.text.toString()
             val edPassword = binding.edRegisterPassword.text.toString()
 
-            api.register(edName, edEmail, edPassword)
-                .enqueue(object : Callback<RegisterResponse> {
-                    override fun onResponse(
-                        call: Call<RegisterResponse>,
-                        response: Response<RegisterResponse>
-                    ) {
-                        Log.e("SignUpResponse", response.toString())
-                        val correct = response.isSuccessful
-                        if (correct) {
-                            Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT)
-                                .show()
-                            val moveIntent =
-                                Intent(this@RegisterActivity, LoginActivity::class.java)
-                            startActivity(moveIntent)
-                            finish()
+            if (validate(edEmail, edPassword)) {
+                api.register(edName, edEmail, edPassword)
+                    .enqueue(object : Callback<RegisterResponse> {
+                        override fun onResponse(
+                            call: Call<RegisterResponse>,
+                            response: Response<RegisterResponse>
+                        ) {
+                            Log.e("SignUpResponse", response.toString())
+                            val correct = response.isSuccessful
+                            if (correct) {
+                                Toast.makeText(applicationContext, "Success!", Toast.LENGTH_SHORT)
+                                    .show()
+                                val moveIntent =
+                                    Intent(this@RegisterActivity, LoginActivity::class.java)
+                                startActivity(moveIntent)
+                                finish()
+                            }
                         }
-                    }
 
-                    override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
-                        Log.e("SignUpError", t.toString())
-                        Toast.makeText(
-                            applicationContext,
-                            "Something's wrong :(",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
-                })
+                        override fun onFailure(call: Call<RegisterResponse>, t: Throwable) {
+                            Log.e("SignUpError", t.toString())
+                            Toast.makeText(
+                                applicationContext,
+                                "Something's wrong :(",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    })
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    "Email or Password are not valid :(",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
+    }
+    private fun validate(email: String, password: String): Boolean {
+        return password.length >= 8 && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
     private fun playAnimation() {
         val joinUs = ObjectAnimator.ofFloat(binding.joinUs, View.ALPHA, 1f).setDuration(500)
