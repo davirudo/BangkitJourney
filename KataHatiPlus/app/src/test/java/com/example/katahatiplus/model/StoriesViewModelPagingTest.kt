@@ -57,7 +57,15 @@ class StoriesViewModelPagingTest {
 
         assertNotNull(differ.snapshot())
         assertEquals(dummyQuote.size, differ.snapshot().size)
+        assertEquals(dummyQuote[0].photoUrl, differ.snapshot()[0]?.photoUrl)
+        assertEquals(dummyQuote[0].createdAt, differ.snapshot()[0]?.createdAt)
         assertEquals(dummyQuote[0].name, differ.snapshot()[0]?.name)
+        assertEquals(dummyQuote[0].description, differ.snapshot()[0]?.description)
+        assertEquals(dummyQuote[0].lon, differ.snapshot()[0]?.lon)
+        assertEquals(dummyQuote[0].lat, differ.snapshot()[0]?.lat)
+
+
+
     }
 
     @Test
