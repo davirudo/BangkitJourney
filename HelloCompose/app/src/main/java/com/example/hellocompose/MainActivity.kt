@@ -1,15 +1,15 @@
 package com.example.hellocompose
 
-import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ExpandLess
+import androidx.compose.material.icons.outlined.ExpandMore
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -70,11 +70,14 @@ fun GreetingList(names: List<String>) {
     } else {
         Text("not found")
     }
-
 }
 
 @Composable
 fun Greeting(name: String) {
+    var isExpanded by remember {
+        mutableStateOf(false)
+    }
+
     Row(
         modifier = Modifier.padding(8.dp),
         verticalAlignment = Alignment.CenterVertically
@@ -85,9 +88,18 @@ fun Greeting(name: String) {
             modifier = Modifier.size(80.dp)
         )
         Spacer(modifier = Modifier.width(8.dp))
-        Column {
+        Column(
+            modifier = Modifier
+                .weight(1f)
+        ) {
             Text(text = "Hello $name!", fontSize = 24.sp, fontWeight = FontWeight.Bold)
             Text(text = "Welcome to Compose!")
+        }
+        IconButton(onClick = { }) {
+            Icon(
+                imageVector = if(isExpanded) Icons.Outlined.ExpandLess else Icons.Outlined.ExpandMore,
+                contentDescription = if (isExpanded) "Show less" else "Show more"
+            )
         }
     }
 }
