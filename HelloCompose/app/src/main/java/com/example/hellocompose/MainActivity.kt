@@ -1,5 +1,6 @@
 package com.example.hellocompose
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -38,6 +39,37 @@ fun Greeting(name: String) {
 @Composable
 fun DefaultPreview() {
     HelloComposeTheme {
-        Greeting("Android")
+        Greeting("Dave")
+    }
+}
+
+//Without Surface
+@Preview(
+    name = "Without Surface",
+    showSystemUi = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+fun GreetingPreview() {
+    HelloComposeTheme {
+        Greeting("Yeehaw")
+    }
+}
+
+//Without Surface
+@Preview(
+    name = "With Surface",
+    showSystemUi = true,
+    uiMode = UI_MODE_NIGHT_YES
+)
+@Composable
+fun GreetingSurfacePreview() {
+    HelloComposeTheme {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colors.background
+        ) {
+            Greeting("Domo!")
+        }
     }
 }
