@@ -18,6 +18,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -108,7 +109,7 @@ fun Greeting(name: String) {
             Column(modifier = Modifier.weight(1f))
             {
                 Text(text = "Hello $name!", fontSize = 24.sp, fontWeight = FontWeight.Bold)
-                Text(text = "Welcome to Compose!")
+                Text(text = "Welcome to Compose!", style = MaterialTheme.typography.body1.copy(fontStyle = FontStyle.Italic))
             }
             IconButton(onClick = {isExpanded = !isExpanded}) {
                 Icon(
