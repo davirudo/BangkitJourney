@@ -18,10 +18,7 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.coffeapp.model.*
-import com.example.coffeapp.ui.components.CategoryItem
-import com.example.coffeapp.ui.components.MenuItem
-import com.example.coffeapp.ui.components.SearchBar
-import com.example.coffeapp.ui.components.SectionText
+import com.example.coffeapp.ui.components.*
 import com.example.coffeapp.ui.theme.CoffeAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -36,15 +33,21 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun CoffeeApp(modifier: Modifier = Modifier) {
+fun CoffeeApp() {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
-        SectionText(stringResource(R.string.section_category))
-        CategoryRow()
-        SectionText(stringResource(R.string.section_favorite_menu))
-        MenuRow(dummyMenu)
-        SectionText(stringResource(R.string.section_best_seller_menu))
-        MenuRow(dummyBestSellerMenu)
+        HomeSection(
+            title = stringResource(R.string.section_category),
+            content = { CategoryRow() }
+        )
+        HomeSection(
+            title = stringResource(R.string.menu_favorite),
+            content = { MenuRow(dummyMenu)}
+        )
+        HomeSection(
+            title = stringResource(R.string.section_best_seller_menu),
+            content = { MenuRow(dummyBestSellerMenu)}
+        )
     }
 }
 
