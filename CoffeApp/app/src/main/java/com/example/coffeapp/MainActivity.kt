@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Favorite
@@ -26,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.coffeapp.model.*
 import com.example.coffeapp.ui.components.*
 import com.example.coffeapp.ui.theme.CoffeAppTheme
+import com.example.coffeapp.ui.theme.LightGray
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,10 +46,11 @@ class MainActivity : ComponentActivity() {
 fun CoffeeApp(modifier: Modifier = Modifier) {
     Scaffold(
         bottomBar = { BottomBar() }
-    ){
+    ){ innerPadding ->
         Column(
             modifier = Modifier
                 .verticalScroll(rememberScrollState())
+                .padding(innerPadding)
         ){
             Banner()
             HomeSection(
@@ -114,7 +117,10 @@ fun MenuRow(
 fun BottomBar(
     modifier: Modifier = Modifier
 ) {
-    BottomNavigation(modifier = modifier) {
+    BottomNavigation(
+        backgroundColor = MaterialTheme.colors.background,
+        contentColor = MaterialTheme.colors.primary,
+        modifier = modifier) {
         val navigationItems = listOf(
             BottomBarItem(
                 title = stringResource(R.string.menu_home),
@@ -141,6 +147,7 @@ fun BottomBar(
                     Text(it.title)
                 },
                 selected = it.title == navigationItems[0].title,
+                unselectedContentColor = LightGray,
                 onClick = {}
             )
         }
