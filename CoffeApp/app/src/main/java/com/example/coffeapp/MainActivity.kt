@@ -17,27 +17,21 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             CoffeAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Greeting("Android")
-                }
+                CoffeeApp()
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
+fun CoffeeApp() {
+
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     CoffeAppTheme {
-        Greeting("Android")
+        CoffeeApp()
     }
 }
