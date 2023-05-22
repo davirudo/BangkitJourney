@@ -37,7 +37,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CoffeeApp(modifier: Modifier = Modifier) {
-    Column(modifier = Modifier)) {
+    Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
         Banner()
         SectionText(stringResource(R.string.section_category))
         CategoryRow()
