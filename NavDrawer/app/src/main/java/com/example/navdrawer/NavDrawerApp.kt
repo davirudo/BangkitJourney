@@ -27,49 +27,22 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun NavDrawerApp() {
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
-    val context = LocalContext.current
 
+    val appState = rememberMyNavDrawerState()
     Scaffold(
-        scaffoldState = scaffoldState,
+        scaffoldState = appState.scaffoldState,
         topBar = {
-            MyTopBar(
-                onMenuClick = {
-                    scope.launch {
-                        scaffoldState.drawerState.open()
-                    }
-                }
+            TopBar(
+                onMenuClick = appState::onMenuClick
             )
         },
         drawerContent = {
-            MyDrawerContent(
-                onItemSelected = { title ->
-                    scope.launch {
-                        scaffoldState.drawerState.close()
-                        val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
-                            message = context.resources.getString(R.string.coming_soon, title),
-                            actionLabel = context.resources.getString(R.string.subscribe_question)
-                        )
-                        if (snackbarResult == SnackbarResult.ActionPerformed) {
-                            Toast.makeText(
-                                context,
-                                context.resources.getString(R.string.subscribed_info),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
-                    }
-                },
-                onBackPress = {
-                    if (scaffoldState.drawerState.isOpen) {
-                        scope.launch {
-                            scaffoldState.drawerState.close()
-                        }
-                    }
-                },
+            DrawerContent(
+                onItemSelected = appState::onItemSelected,
+                onBackPress = appState::onBackPress,
             )
         },
-        drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
+        drawerGesturesEnabled = appState.scaffoldState.drawerState.isOpen,
     ) { paddingValues ->
         Box(
             modifier = Modifier.fillMaxSize().padding(paddingValues),
@@ -81,7 +54,7 @@ fun NavDrawerApp() {
 }
 
 @Composable
-fun MyTopBar(onMenuClick: () -> Unit) {
+fun TopBar(onMenuClick: () -> Unit) {
     TopAppBar(
         navigationIcon = {
             IconButton(onClick = {
@@ -102,7 +75,7 @@ fun MyTopBar(onMenuClick: () -> Unit) {
 data class MenuItem(val title: String, val icon: ImageVector)
 
 @Composable
-fun MyDrawerContent(
+fun DrawerContent(
     modifier: Modifier = Modifier,
     onItemSelected: (title: String) -> Unit,
     onBackPress: () -> Unit,
