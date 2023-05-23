@@ -43,23 +43,23 @@ fun NavDrawerApp() {
             )
         },
         drawerContent = {
-            DrawerContent(
+            MyDrawerContent(
                 onItemSelected = { title ->
-                scope.launch {
-                    scaffoldState.drawerState.close()
-                    val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
-                        message = context.resources.getString(R.string.coming_soon, title),
-                        actionLabel = context.resources.getString(R.string.subscribe_question),
-                    )
-                    if (snackbarResult == SnackbarResult.ActionPerformed) {
-                        Toast.makeText(
-                            context,
-                            context.resources.getString(R.string.subscribed_info),
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    scope.launch {
+                        scaffoldState.drawerState.close()
+                        val snackbarResult = scaffoldState.snackbarHostState.showSnackbar(
+                            message = context.resources.getString(R.string.coming_soon, title),
+                            actionLabel = context.resources.getString(R.string.subscribe_question)
+                        )
+                        if (snackbarResult == SnackbarResult.ActionPerformed) {
+                            Toast.makeText(
+                                context,
+                                context.resources.getString(R.string.subscribed_info),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
                     }
-                }
-            },
+                },
                 onBackPress = {
                     if (scaffoldState.drawerState.isOpen) {
                         scope.launch {
@@ -70,16 +70,13 @@ fun NavDrawerApp() {
             )
         },
         drawerGesturesEnabled = scaffoldState.drawerState.isOpen,
-) { paddingValues ->
+    ) { paddingValues ->
         Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
+            modifier = Modifier.fillMaxSize().padding(paddingValues),
             contentAlignment = Alignment.Center
         ) {
             Text(stringResource(R.string.hello_world))
         }
-
     }
 }
 
@@ -105,10 +102,10 @@ fun MyTopBar(onMenuClick: () -> Unit) {
 data class MenuItem(val title: String, val icon: ImageVector)
 
 @Composable
-fun DrawerContent(
+fun MyDrawerContent(
     modifier: Modifier = Modifier,
     onItemSelected: (title: String) -> Unit,
-    onBackPressed: () -> Unit,
+    onBackPress: () -> Unit,
 ) {
     val items = listOf(
         MenuItem(
@@ -127,18 +124,16 @@ fun DrawerContent(
     Column(modifier.fillMaxSize()) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
                 .height(190.dp)
+                .fillMaxWidth()
                 .background(MaterialTheme.colors.primary)
         )
         for (item in items) {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onItemSelected(item.title)
-                    }
-                    .padding(vertical = 12.dp, horizontal = 16.dp),
+                    .clickable { onItemSelected(item.title) }
+                    .padding(vertical = 12.dp, horizontal = 16.dp)
+                    .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
@@ -146,32 +141,28 @@ fun DrawerContent(
                     contentDescription = item.title,
                     tint = Color.DarkGray
                 )
-                Spacer(modifier = Modifier.width(32.dp))
-                Text(
-                    text = item.title,
-                    style = MaterialTheme.typography.subtitle2,
-                )
+                Spacer(Modifier.width(32.dp))
+                Text(text = item.title, style = MaterialTheme.typography.subtitle2)
             }
         }
         Divider()
     }
+//    BackHandler {
     BackPressHandler {
-        onBackPressed()
+        //do something
+        onBackPress()
     }
 }
 
 @Composable
-fun BackPressHandler(
-    enabled: Boolean = true,
-    onBackPressed: () -> Unit
-) {
-   val currentOnBackPressed by rememberUpdatedState(onBackPressed)
+fun BackPressHandler(enabled: Boolean = true, onBackPressed: () -> Unit) {
+    val currentOnBackPressed by rememberUpdatedState(onBackPressed)
     val backCallback = remember {
-         object : OnBackPressedCallback(enabled) {
-              override fun handleOnBackPressed() {
+        object : OnBackPressedCallback(enabled) {
+            override fun handleOnBackPressed() {
                 currentOnBackPressed()
-              }
-         }
+            }
+        }
     }
 
     SideEffect {
