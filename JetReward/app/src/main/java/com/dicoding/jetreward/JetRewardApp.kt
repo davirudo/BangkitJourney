@@ -1,9 +1,6 @@
 package com.dicoding.jetreward
 
-import androidx.compose.material.BottomNavigation
-import androidx.compose.material.BottomNavigationItem
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
@@ -18,7 +15,14 @@ import com.dicoding.jetreward.ui.navigation.Screen
 fun JetRewardApp(
     modifier: Modifier = Modifier,
 ) {
+    Scaffold(
+        bottomBar = { BottomBar()
+        },
+        modifier = modifier
+    ) { innerPadding ->
 
+
+    }
 }
 
 @Composable
