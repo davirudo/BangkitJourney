@@ -23,7 +23,7 @@ fun CartItem(
     ramenId: Long,
     image: Int,
     title: String,
-    totalPoint: Int,
+    totalPrice: Int,
     count: Int,
     onProductCountChanged: (id: Long, count: Int) -> Unit,
     modifier: Modifier = Modifier
@@ -55,8 +55,8 @@ fun CartItem(
             )
             Text(
                 text = stringResource(
-                    R.string.required_point,
-                    totalPoint
+                    R.string.required_price,
+                    totalPrice
                 ),
                 color = MaterialTheme.colors.secondary,
                 style = MaterialTheme.typography.subtitle2,

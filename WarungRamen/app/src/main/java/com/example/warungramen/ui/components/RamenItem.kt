@@ -23,7 +23,7 @@ import com.example.warungramen.ui.theme.Shapes
 fun RamenItem(
     image: Int,
     title: String,
-    requiredPoint: Int,
+    requiredPrice: Int,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -46,7 +46,7 @@ fun RamenItem(
             )
         )
         Text(
-            text = stringResource(R.string.required_point, requiredPoint),
+            text = stringResource(R.string.required_price, requiredPrice),
             style = MaterialTheme.typography.subtitle2,
             color = MaterialTheme.colors.secondary
         )

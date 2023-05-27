@@ -59,7 +59,7 @@ fun HomeContent(
             RamenItem(
                 image = data.ramen.image,
                 title = data.ramen.title,
-                requiredPoint = data.ramen.requiredPrice,
+                requiredPrice = data.ramen.requiredPrice,
                 modifier = Modifier.clickable {
                     navigateToDetail(data.ramen.id)
                 }

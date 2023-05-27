@@ -71,14 +71,14 @@ fun DetailScreen(
 fun DetailContent(
     @DrawableRes image: Int,
     title: String,
-    basePoint: Int,
+    basePrice: Int,
     count: Int,
     onBackClick: () -> Unit,
     onAddToCart: (count: Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
-    var totalPoint by rememberSaveable { mutableStateOf(0) }
+    var totalPrice by rememberSaveable { mutableStateOf(0) }
     var orderCount by rememberSaveable { mutableStateOf(count) }
 
     Column(modifier = modifier) {
@@ -117,7 +117,7 @@ fun DetailContent(
                     ),
                 )
                 Text(
-                    text = stringResource(R.string.required_point, basePoint),
+                    text = stringResource(R.string.required_price, basePrice),
                     style = MaterialTheme.typography.subtitle1.copy(
                         fontWeight = FontWeight.ExtraBold
                     ),
@@ -146,9 +146,9 @@ fun DetailContent(
                     .align(Alignment.CenterHorizontally)
                     .padding(bottom = 16.dp)
             )
-            totalPoint = basePoint * orderCount
+            totalPrice = basePrice * orderCount
             OrderButton(
-                text = stringResource(R.string.add_to_cart, totalPoint),
+                text = stringResource(R.string.add_to_cart, totalPrice),
                 enabled = orderCount > 0,
                 onClick = {
                     onAddToCart(orderCount)

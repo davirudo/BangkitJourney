@@ -61,7 +61,7 @@ fun CartContent(
     val shareMessage = stringResource(
         R.string.share_message,
         state.orderRamen.count(),
-        state.totalRequiredPoint
+        state.totalRequiredPrice
     )
     Column(
         modifier = modifier.fillMaxSize()
@@ -76,7 +76,7 @@ fun CartContent(
             )
         }
         OrderButton(
-            text = stringResource(R.string.total_order, state.totalRequiredPoint),
+            text = stringResource(R.string.total_order, state.totalRequiredPrice),
             enabled = state.orderRamen.isNotEmpty(),
             onClick = {
                 onOrderButtonClicked(shareMessage)
@@ -92,7 +92,7 @@ fun CartContent(
                     ramenId = item.ramen.id,
                     image = item.ramen.image,
                     title = item.ramen.title,
-                    totalPoint = item.ramen.requiredPrice * item.count,
+                    totalPrice = item.ramen.requiredPrice * item.count,
                     count = item.count,
                     onProductCountChanged = onProductCountChanged,
                 )

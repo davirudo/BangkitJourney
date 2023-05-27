@@ -5,5 +5,5 @@ import com.example.warungramen.model.OrderRamen
 
 data class CartState(
     val orderRamen: List<OrderRamen>,
-    val totalRequiredPoint: Int
+    val totalRequiredPrice: Int
 )

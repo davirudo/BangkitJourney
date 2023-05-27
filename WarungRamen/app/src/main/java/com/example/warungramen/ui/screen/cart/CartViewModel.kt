@@ -20,9 +20,9 @@ class CartViewModel(
             _uiState.value = UiState.Loading
             repository.getAddedOrderRamens()
                 .collect { orderRamen ->
-                    val totalRequiredPoint =
+                    val totalRequiredPrice =
                         orderRamen.sumOf { it.ramen.requiredPrice * it.count }
-                    _uiState.value = UiState.Success(CartState(orderRamen, totalRequiredPoint))
+                    _uiState.value = UiState.Success(CartState(orderRamen, totalRequiredPrice))
                 }
         }
     }
