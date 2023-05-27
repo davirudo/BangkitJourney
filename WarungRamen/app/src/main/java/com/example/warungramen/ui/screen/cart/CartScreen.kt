@@ -9,6 +9,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -69,34 +70,47 @@ fun CartContent(
         TopAppBar(backgroundColor = MaterialTheme.colors.surface) {
             Text(
                 text = stringResource(R.string.menu_cart),
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center
             )
         }
-        OrderButton(
-            text = stringResource(R.string.total_order, state.totalRequiredPrice),
-            enabled = state.orderRamen.isNotEmpty(),
-            onClick = {
-                onOrderButtonClicked(shareMessage)
-            },
-            modifier = Modifier.padding(16.dp)
-        )
-        LazyColumn(
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            items(state.orderRamen, key = { it.ramen.id }) { item ->
-                CartItem(
-                    ramenId = item.ramen.id,
-                    image = item.ramen.image,
-                    title = item.ramen.title,
-                    totalPrice = item.ramen.requiredPrice * item.count,
-                    count = item.count,
-                    onProductCountChanged = onProductCountChanged,
+        if (state.orderRamen.isEmpty()) {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = "[ orderan kosong ]",
+                    modifier = Modifier.align(Alignment.Center),
+                    textAlign = TextAlign.Center,
+                    fontSize = 20.sp
                 )
-                Divider()
+            }
+        } else {
+            OrderButton(
+                text = stringResource(R.string.total_order, state.totalRequiredPrice),
+                enabled = state.orderRamen.isNotEmpty(),
+                onClick = {
+                    onOrderButtonClicked(shareMessage)
+                },
+                modifier = Modifier.padding(16.dp)
+            )
+            LazyColumn(
+                contentPadding = PaddingValues(16.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                items(state.orderRamen, key = { it.ramen.id }) { item ->
+                    CartItem(
+                        ramenId = item.ramen.id,
+                        image = item.ramen.image,
+                        title = item.ramen.title,
+                        totalPrice = item.ramen.requiredPrice * item.count,
+                        count = item.count,
+                        onProductCountChanged = onProductCountChanged,
+                    )
+                    Divider()
+                }
             }
         }
     }
