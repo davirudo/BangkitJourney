@@ -5,9 +5,7 @@ import android.content.Intent
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -58,7 +56,7 @@ fun WarungRamenApp(
                     }
                 )
             }
-            composable(Screen.Cart.route) {
+            composable(Screen.Order.route) {
                 val context = LocalContext.current
                 CartScreen(
                     onOrderButtonClicked = { message ->
@@ -66,7 +64,7 @@ fun WarungRamenApp(
                     }
                 )
             }
-            composable(Screen.Profile.route) {
+            composable(Screen.About.route) {
                 ProfileScreen()
             }
             composable(
@@ -81,7 +79,7 @@ fun WarungRamenApp(
                     },
                     navigateToCart = {
                         navController.popBackStack()
-                        navController.navigate(Screen.Cart.route) {
+                        navController.navigate(Screen.Order.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
@@ -98,14 +96,14 @@ fun WarungRamenApp(
 private fun shareOrder(context: Context, summary: String) {
     val intent = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
-        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.dicoding_ramen))
+        putExtra(Intent.EXTRA_SUBJECT, context.getString(R.string.warung_ramen))
         putExtra(Intent.EXTRA_TEXT, summary)
     }
 
     context.startActivity(
         Intent.createChooser(
             intent,
-            context.getString(R.string.dicoding_ramen)
+            context.getString(R.string.warung_ramen)
         )
     )
 }
@@ -128,13 +126,13 @@ private fun BottomBar(
             ),
             NavigationItem(
                 title = stringResource(R.string.menu_cart),
-                icon = Icons.Default.ShoppingCart,
-                screen = Screen.Cart
+                icon = Icons.Default.List,
+                screen = Screen.Order
             ),
             NavigationItem(
                 title = stringResource(R.string.menu_profile),
-                icon = Icons.Default.AccountCircle,
-                screen = Screen.Profile
+                icon = Icons.Default.Info,
+                screen = Screen.About
             ),
         )
         BottomNavigation {
