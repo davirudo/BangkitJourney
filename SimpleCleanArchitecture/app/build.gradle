@@ -7,6 +7,10 @@ android {
     namespace 'com.example.simplecleanarchitecture'
     compileSdk 33
 
+    buildFeatures {
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.simplecleanarchitecture"
         minSdk 24
